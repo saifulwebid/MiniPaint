@@ -13,16 +13,15 @@ namespace MiniPaint.WinForms
     public partial class frmMain : Form
     {
         private Stack<DrawingObject.Line> lines;
+        private Point startPoint;
+        private bool dragging;
 
         public frmMain()
         {
             InitializeComponent();
 
             lines = new Stack<DrawingObject.Line>();
-            lines.Push(new DrawingObject.Line(new Point(10, 10), new Point(100, 200)));
-            lines.Push(new DrawingObject.Line(new Point(30, 10), new Point(100, 100)));
-            lines.Push(new DrawingObject.Line(new Point(20, 100), new Point(21, 101)));
-            lines.Push(new DrawingObject.Line(new Point(10, 100), new Point(20, 10)));
+            dragging = false;
         }
 
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
@@ -31,6 +30,22 @@ namespace MiniPaint.WinForms
             {
                 l.DrawDDA(e.Graphics);
                 l.DrawNaive(e.Graphics);
+            }
+        }
+
+        private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            startPoint = new Point(e.X, e.Y);
+        }
+
+        private void pnlCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                lines.Push(new DrawingObject.Line(startPoint, new Point(e.X, e.Y)));
+                dragging = false;
+                pnlCanvas.Invalidate();
             }
         }
     }
