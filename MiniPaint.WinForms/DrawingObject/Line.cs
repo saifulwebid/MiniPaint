@@ -42,46 +42,29 @@ namespace MiniPaint.WinForms.DrawingObject
             int dx = end.X - start.X;
             int dy = end.Y - start.Y;
 
-            double m = (double)dy / (double)dx;
-            
+            double m = (double)dy / dx;
             double c = start.Y - m * start.X;
 
             if (Math.Abs(dx) > Math.Abs(dy))
             {
-                if (start.X < end.X)
+                int x_start = Math.Min(start.X, end.X);
+                int x_end = Math.Max(start.X, end.X);
+
+                for (int x = x_start; x <= x_end; x++)
                 {
-                    for (int x = start.X; x <= end.X; x++)
-                    {
-                        int y = (int)(m * x + c);
-                        g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
-                    }
-                }
-                else
-                {
-                    for (int x = end.X; x <= start.X; x++)
-                    {
-                        int y = (int)(m * x + c);
-                        g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
-                    }
+                    int y = (int)(m * x + c);
+                    g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
                 }
             }
             else
             {
-                if (start.Y < end.Y)
+                int y_start = Math.Min(start.Y, end.Y);
+                int y_end = Math.Max(start.Y, end.Y);
+
+                for (int y = y_start; y <= y_end; y++)
                 {
-                    for (int y = start.Y; y <= end.Y; y++)
-                    {
-                        int x = (int)((y - c) / m);
-                        g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
-                    }
-                }
-                else
-                {
-                    for (int y = end.Y; y <= start.Y; y++)
-                    {
-                        int x = (int)((y - c) / m);
-                        g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
-                    }
+                    int x = (int)((y - c) / m);
+                    g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
                 }
             }
         }
