@@ -63,7 +63,16 @@ namespace MiniPaint.WinForms.DrawingObject
 
                 for (int y = y_start; y <= y_end; y++)
                 {
-                    int x = (int)((y - c) / m);
+                    int x;
+                    if (dx == 0)
+                    {
+                        x = start.X;
+                    }
+                    else
+                    {
+                        x = (int)((y - c) / m);
+                    }
+
                     g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
                 }
             }
