@@ -23,11 +23,11 @@ namespace MiniPaint.WinForms.DrawingObject
             int dy = end.Y - start.Y;
 
             int step = Math.Max(Math.Abs(dx), Math.Abs(dy));
-            double x_tambah = (double)dx / (double)step;
-            double y_tambah = (double)dy / (double)step;
+            double x_tambah = (double)dx / step;
+            double y_tambah = (double)dy / step;
 
-            double x = (double)start.X;
-            double y = (double)start.Y;
+            double x = start.X;
+            double y = start.Y;
             while (step > 0)
             {
                 g.FillRectangle(Brushes.Blue, new Rectangle(new Point((int)x, (int)y), new Size(1, 1)));
