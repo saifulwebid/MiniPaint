@@ -77,5 +77,42 @@ namespace MiniPaint.WinForms.DrawingObject
                 }
             }
         }
+
+        /// <summary>
+        /// https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
+        /// </summary>
+        public void DrawBresenham(Graphics g)
+        {
+            int dx = Math.Abs(end.X - start.X);
+            int sx = start.X < end.X ? 1 : -1;
+
+            int dy = Math.Abs(end.Y - start.Y);
+            int sy = start.Y < end.Y ? 1 : -1;
+
+            int err = (dx > dy ? dx : -dy) / 2;
+            int e2;
+
+            int x = start.X;
+            int y = start.Y;
+            while (true)
+            {
+                g.FillRectangle(Brushes.Red, new Rectangle(new Point(x, y), new Size(1, 1)));
+
+                if (x == end.X && y == end.Y)
+                    break;
+
+                e2 = err;
+                if (e2 > -dx)
+                {
+                    err -= dy;
+                    x += sx;
+                }
+                if (e2 < dy)
+                {
+                    err += dx;
+                    y += sy;
+                }
+            }
+        }
     }
 }
