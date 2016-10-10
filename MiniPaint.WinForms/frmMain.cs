@@ -81,5 +81,12 @@ namespace MiniPaint.WinForms
         {
             pnlCanvas.Invalidate();
         }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lines.Clear();
+            circles.Clear();
+            pnlCanvas.Invalidate();
+        }
     }
 }

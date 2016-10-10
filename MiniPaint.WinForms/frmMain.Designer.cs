@@ -37,6 +37,7 @@
             this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
             this.rdoToolboxCircle = new System.Windows.Forms.RadioButton();
             this.btnRedraw = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -152,11 +153,23 @@
             this.btnRedraw.UseVisualStyleBackColor = true;
             this.btnRedraw.Click += new System.EventHandler(this.btnRedraw_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.Location = new System.Drawing.Point(669, 230);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 500);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRedraw);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -182,6 +195,7 @@
         private System.Windows.Forms.RadioButton rdoToolboxLine;
         private System.Windows.Forms.RadioButton rdoToolboxCircle;
         private System.Windows.Forms.Button btnRedraw;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
