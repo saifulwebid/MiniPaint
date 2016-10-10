@@ -33,7 +33,12 @@
             this.rdoLineBresenham = new System.Windows.Forms.RadioButton();
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
             this.rdoLineNaive = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
+            this.rdoToolboxCircle = new System.Windows.Forms.RadioButton();
+            this.btnRedraw = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCanvas
@@ -57,7 +62,7 @@
             this.groupBox1.Controls.Add(this.rdoLineBresenham);
             this.groupBox1.Controls.Add(this.rdoLineDda);
             this.groupBox1.Controls.Add(this.rdoLineNaive);
-            this.groupBox1.Location = new System.Drawing.Point(587, 12);
+            this.groupBox1.Location = new System.Drawing.Point(587, 107);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
             this.groupBox1.Size = new System.Drawing.Size(239, 116);
@@ -100,17 +105,68 @@
             this.rdoLineNaive.UseVisualStyleBackColor = true;
             this.rdoLineNaive.CheckedChanged += new System.EventHandler(this.allLineRadioBox_CheckedChanged);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.rdoToolboxCircle);
+            this.groupBox2.Controls.Add(this.rdoToolboxLine);
+            this.groupBox2.Location = new System.Drawing.Point(587, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox2.Size = new System.Drawing.Size(239, 89);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Toolbox";
+            // 
+            // rdoToolboxLine
+            // 
+            this.rdoToolboxLine.AutoSize = true;
+            this.rdoToolboxLine.Checked = true;
+            this.rdoToolboxLine.Location = new System.Drawing.Point(13, 28);
+            this.rdoToolboxLine.Name = "rdoToolboxLine";
+            this.rdoToolboxLine.Size = new System.Drawing.Size(56, 21);
+            this.rdoToolboxLine.TabIndex = 0;
+            this.rdoToolboxLine.TabStop = true;
+            this.rdoToolboxLine.Text = "Line";
+            this.rdoToolboxLine.UseVisualStyleBackColor = true;
+            // 
+            // rdoToolboxCircle
+            // 
+            this.rdoToolboxCircle.AutoSize = true;
+            this.rdoToolboxCircle.Location = new System.Drawing.Point(13, 55);
+            this.rdoToolboxCircle.Name = "rdoToolboxCircle";
+            this.rdoToolboxCircle.Size = new System.Drawing.Size(64, 21);
+            this.rdoToolboxCircle.TabIndex = 1;
+            this.rdoToolboxCircle.TabStop = true;
+            this.rdoToolboxCircle.Text = "Circle";
+            this.rdoToolboxCircle.UseVisualStyleBackColor = true;
+            // 
+            // btnRedraw
+            // 
+            this.btnRedraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRedraw.Location = new System.Drawing.Point(588, 230);
+            this.btnRedraw.Name = "btnRedraw";
+            this.btnRedraw.Size = new System.Drawing.Size(75, 23);
+            this.btnRedraw.TabIndex = 6;
+            this.btnRedraw.Text = "Redraw";
+            this.btnRedraw.UseVisualStyleBackColor = true;
+            this.btnRedraw.Click += new System.EventHandler(this.btnRedraw_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 500);
+            this.Controls.Add(this.btnRedraw);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pnlCanvas);
             this.Name = "frmMain";
             this.Text = "MiniPaint";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -122,6 +178,10 @@
         private System.Windows.Forms.RadioButton rdoLineBresenham;
         private System.Windows.Forms.RadioButton rdoLineDda;
         private System.Windows.Forms.RadioButton rdoLineNaive;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rdoToolboxLine;
+        private System.Windows.Forms.RadioButton rdoToolboxCircle;
+        private System.Windows.Forms.Button btnRedraw;
     }
 }
 

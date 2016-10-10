@@ -13,6 +13,7 @@ namespace MiniPaint.WinForms
     public partial class frmMain : Form
     {
         private Stack<DrawingObject.Line> lines;
+        private Stack<DrawingObject.Circle> circles;
         private Point startPoint;
         private bool dragging;
 
@@ -21,6 +22,7 @@ namespace MiniPaint.WinForms
             InitializeComponent();
 
             lines = new Stack<DrawingObject.Line>();
+            circles = new Stack<DrawingObject.Circle>();
             dragging = false;
         }
 
@@ -37,6 +39,11 @@ namespace MiniPaint.WinForms
                 if (rdoLineBresenham.Checked)
                     l.DrawBresenham(e.Graphics);
             }
+
+            foreach (DrawingObject.Circle c in circles)
+            {
+                c.Draw(e.Graphics);
+            }
         }
 
         private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -49,13 +56,28 @@ namespace MiniPaint.WinForms
         {
             if (dragging)
             {
-                lines.Push(new DrawingObject.Line(startPoint, new Point(e.X, e.Y)));
+                if (rdoToolboxLine.Checked)
+                    lines.Push(new DrawingObject.Line(startPoint, new Point(e.X, e.Y)));
+
+                if (rdoToolboxCircle.Checked)
+                {
+                    int radius = (int)Math.Sqrt((e.X - startPoint.X) * (e.X - startPoint.X) +
+                        (e.Y - startPoint.Y) * (e.Y - startPoint.Y));
+
+                    circles.Push(new DrawingObject.Circle(startPoint, radius));
+                }
+
                 dragging = false;
                 pnlCanvas.Invalidate();
             }
         }
 
         private void allLineRadioBox_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlCanvas.Invalidate();
+        }
+
+        private void btnRedraw_Click(object sender, EventArgs e)
         {
             pnlCanvas.Invalidate();
         }
