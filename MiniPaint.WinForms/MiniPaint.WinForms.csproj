@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawingObject\Circle.cs" />
     <Compile Include="DrawingObject\Line.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
