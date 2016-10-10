@@ -28,13 +28,13 @@ namespace MiniPaint.WinForms
         {
             foreach (DrawingObject.Line l in lines)
             {
-                if (cboNaive.Checked)
+                if (rdoLineNaive.Checked)
                     l.DrawNaive(e.Graphics);
 
-                if (cboDDA.Checked)
+                if (rdoLineDda.Checked)
                     l.DrawDDA(e.Graphics);
 
-                if (cboBresenham.Checked)
+                if (rdoLineBresenham.Checked)
                     l.DrawBresenham(e.Graphics);
             }
         }
@@ -55,7 +55,7 @@ namespace MiniPaint.WinForms
             }
         }
 
-        private void allComboBox_CheckedChanged(object sender, EventArgs e)
+        private void allLineRadioBox_CheckedChanged(object sender, EventArgs e)
         {
             pnlCanvas.Invalidate();
         }
