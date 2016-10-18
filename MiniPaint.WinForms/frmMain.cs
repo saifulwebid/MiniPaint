@@ -14,6 +14,7 @@ namespace MiniPaint.WinForms
     {
         private Stack<DrawingObject.Line> lines;
         private Stack<DrawingObject.Circle> circles;
+        private Stack<DrawingObject.Ellipse> ellipses;
         private Point startPoint;
         private bool dragging;
 
@@ -23,6 +24,7 @@ namespace MiniPaint.WinForms
 
             lines = new Stack<DrawingObject.Line>();
             circles = new Stack<DrawingObject.Circle>();
+            ellipses = new Stack<DrawingObject.Ellipse>();
             dragging = false;
         }
 
@@ -44,6 +46,11 @@ namespace MiniPaint.WinForms
             {
                 c.Draw(e.Graphics);
             }
+
+            foreach (DrawingObject.Ellipse el in ellipses)
+            {
+                el.Draw(e.Graphics);
+            }
         }
 
         private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -57,14 +64,22 @@ namespace MiniPaint.WinForms
             if (dragging)
             {
                 if (rdoToolboxLine.Checked)
+                {
                     lines.Push(new DrawingObject.Line(startPoint, new Point(e.X, e.Y)));
-
-                if (rdoToolboxCircle.Checked)
+                }
+                else if (rdoToolboxCircle.Checked)
                 {
                     int radius = (int)Math.Sqrt((e.X - startPoint.X) * (e.X - startPoint.X) +
                         (e.Y - startPoint.Y) * (e.Y - startPoint.Y));
 
                     circles.Push(new DrawingObject.Circle(startPoint, radius));
+                }
+                else if (rdoToolboxEllipse.Checked)
+                {
+                    int rx = (int)(Math.Abs(e.X - startPoint.X) * 0.5);
+                    int ry = (int)(Math.Abs(e.Y - startPoint.Y) * 0.5);
+
+                    ellipses.Push(new DrawingObject.Ellipse(new Point(Math.Min(e.X, startPoint.X) + rx, Math.Min(e.Y, startPoint.Y) + ry), rx, ry));
                 }
 
                 dragging = false;

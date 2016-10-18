@@ -38,6 +38,7 @@
             this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.rdoToolboxEllipse = new System.Windows.Forms.RadioButton();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +64,7 @@
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineBresenham);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineDda);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineNaive);
-            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(587, 107);
+            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(587, 134);
             this.grpLineGeneratorAlgorithm.Name = "grpLineGeneratorAlgorithm";
             this.grpLineGeneratorAlgorithm.Padding = new System.Windows.Forms.Padding(10);
             this.grpLineGeneratorAlgorithm.Size = new System.Drawing.Size(239, 116);
@@ -109,12 +110,13 @@
             // grpToolbox
             // 
             this.grpToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpToolbox.Controls.Add(this.rdoToolboxEllipse);
             this.grpToolbox.Controls.Add(this.rdoToolboxCircle);
             this.grpToolbox.Controls.Add(this.rdoToolboxLine);
             this.grpToolbox.Location = new System.Drawing.Point(587, 12);
             this.grpToolbox.Name = "grpToolbox";
             this.grpToolbox.Padding = new System.Windows.Forms.Padding(10);
-            this.grpToolbox.Size = new System.Drawing.Size(239, 89);
+            this.grpToolbox.Size = new System.Drawing.Size(239, 116);
             this.grpToolbox.TabIndex = 5;
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
@@ -146,7 +148,7 @@
             // btnRedraw
             // 
             this.btnRedraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRedraw.Location = new System.Drawing.Point(588, 230);
+            this.btnRedraw.Location = new System.Drawing.Point(588, 257);
             this.btnRedraw.Name = "btnRedraw";
             this.btnRedraw.Size = new System.Drawing.Size(75, 23);
             this.btnRedraw.TabIndex = 6;
@@ -157,13 +159,24 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(669, 230);
+            this.btnClear.Location = new System.Drawing.Point(669, 257);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // rdoToolboxEllipse
+            // 
+            this.rdoToolboxEllipse.AutoSize = true;
+            this.rdoToolboxEllipse.Location = new System.Drawing.Point(13, 82);
+            this.rdoToolboxEllipse.Name = "rdoToolboxEllipse";
+            this.rdoToolboxEllipse.Size = new System.Drawing.Size(70, 21);
+            this.rdoToolboxEllipse.TabIndex = 2;
+            this.rdoToolboxEllipse.TabStop = true;
+            this.rdoToolboxEllipse.Text = "Ellipse";
+            this.rdoToolboxEllipse.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -197,6 +210,7 @@
         private System.Windows.Forms.RadioButton rdoToolboxCircle;
         private System.Windows.Forms.Button btnRedraw;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.RadioButton rdoToolboxEllipse;
     }
 }
 
