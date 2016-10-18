@@ -66,10 +66,10 @@ namespace MiniPaint.WinForms
                 }
                 else if (rdoToolboxEllipse.Checked)
                 {
-                    int rx = (int)(Math.Abs(e.X - startPoint.X) * 0.5);
-                    int ry = (int)(Math.Abs(e.Y - startPoint.Y) * 0.5);
+                    int rx = Math.Abs(e.X - startPoint.X);
+                    int ry = Math.Abs(e.Y - startPoint.Y);
 
-                    objects.Push(new DrawingObject.Ellipse(new Point(Math.Min(e.X, startPoint.X) + rx, Math.Min(e.Y, startPoint.Y) + ry), rx, ry));
+                    objects.Push(new DrawingObject.Ellipse(startPoint, rx, ry));
                 }
 
                 dragging = false;
