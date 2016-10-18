@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.pnlCanvas = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpLineGeneratorAlgorithm = new System.Windows.Forms.GroupBox();
             this.rdoLineBresenham = new System.Windows.Forms.RadioButton();
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
             this.rdoLineNaive = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
+            this.grpToolbox = new System.Windows.Forms.GroupBox();
             this.rdoToolboxCircle = new System.Windows.Forms.RadioButton();
+            this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpLineGeneratorAlgorithm.SuspendLayout();
+            this.grpToolbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCanvas
@@ -57,19 +57,19 @@
             this.pnlCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseDown);
             this.pnlCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
             // 
-            // groupBox1
+            // grpLineGeneratorAlgorithm
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.rdoLineBresenham);
-            this.groupBox1.Controls.Add(this.rdoLineDda);
-            this.groupBox1.Controls.Add(this.rdoLineNaive);
-            this.groupBox1.Location = new System.Drawing.Point(587, 107);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox1.Size = new System.Drawing.Size(239, 116);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Line generator algorithm to use";
+            this.grpLineGeneratorAlgorithm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineBresenham);
+            this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineDda);
+            this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineNaive);
+            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(587, 107);
+            this.grpLineGeneratorAlgorithm.Name = "grpLineGeneratorAlgorithm";
+            this.grpLineGeneratorAlgorithm.Padding = new System.Windows.Forms.Padding(10);
+            this.grpLineGeneratorAlgorithm.Size = new System.Drawing.Size(239, 116);
+            this.grpLineGeneratorAlgorithm.TabIndex = 4;
+            this.grpLineGeneratorAlgorithm.TabStop = false;
+            this.grpLineGeneratorAlgorithm.Text = "Line generator algorithm to use";
             // 
             // rdoLineBresenham
             // 
@@ -106,18 +106,29 @@
             this.rdoLineNaive.UseVisualStyleBackColor = true;
             this.rdoLineNaive.CheckedChanged += new System.EventHandler(this.allLineRadioBox_CheckedChanged);
             // 
-            // groupBox2
+            // grpToolbox
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.rdoToolboxCircle);
-            this.groupBox2.Controls.Add(this.rdoToolboxLine);
-            this.groupBox2.Location = new System.Drawing.Point(587, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox2.Size = new System.Drawing.Size(239, 89);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Toolbox";
+            this.grpToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpToolbox.Controls.Add(this.rdoToolboxCircle);
+            this.grpToolbox.Controls.Add(this.rdoToolboxLine);
+            this.grpToolbox.Location = new System.Drawing.Point(587, 12);
+            this.grpToolbox.Name = "grpToolbox";
+            this.grpToolbox.Padding = new System.Windows.Forms.Padding(10);
+            this.grpToolbox.Size = new System.Drawing.Size(239, 89);
+            this.grpToolbox.TabIndex = 5;
+            this.grpToolbox.TabStop = false;
+            this.grpToolbox.Text = "Toolbox";
+            // 
+            // rdoToolboxCircle
+            // 
+            this.rdoToolboxCircle.AutoSize = true;
+            this.rdoToolboxCircle.Location = new System.Drawing.Point(13, 55);
+            this.rdoToolboxCircle.Name = "rdoToolboxCircle";
+            this.rdoToolboxCircle.Size = new System.Drawing.Size(64, 21);
+            this.rdoToolboxCircle.TabIndex = 1;
+            this.rdoToolboxCircle.TabStop = true;
+            this.rdoToolboxCircle.Text = "Circle";
+            this.rdoToolboxCircle.UseVisualStyleBackColor = true;
             // 
             // rdoToolboxLine
             // 
@@ -130,17 +141,7 @@
             this.rdoToolboxLine.TabStop = true;
             this.rdoToolboxLine.Text = "Line";
             this.rdoToolboxLine.UseVisualStyleBackColor = true;
-            // 
-            // rdoToolboxCircle
-            // 
-            this.rdoToolboxCircle.AutoSize = true;
-            this.rdoToolboxCircle.Location = new System.Drawing.Point(13, 55);
-            this.rdoToolboxCircle.Name = "rdoToolboxCircle";
-            this.rdoToolboxCircle.Size = new System.Drawing.Size(64, 21);
-            this.rdoToolboxCircle.TabIndex = 1;
-            this.rdoToolboxCircle.TabStop = true;
-            this.rdoToolboxCircle.Text = "Circle";
-            this.rdoToolboxCircle.UseVisualStyleBackColor = true;
+            this.rdoToolboxLine.CheckedChanged += new System.EventHandler(this.rdoToolboxLine_CheckedChanged);
             // 
             // btnRedraw
             // 
@@ -171,15 +172,15 @@
             this.ClientSize = new System.Drawing.Size(838, 500);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRedraw);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpToolbox);
+            this.Controls.Add(this.grpLineGeneratorAlgorithm);
             this.Controls.Add(this.pnlCanvas);
             this.Name = "frmMain";
             this.Text = "MiniPaint";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpLineGeneratorAlgorithm.ResumeLayout(false);
+            this.grpLineGeneratorAlgorithm.PerformLayout();
+            this.grpToolbox.ResumeLayout(false);
+            this.grpToolbox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -187,11 +188,11 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlCanvas;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpLineGeneratorAlgorithm;
         private System.Windows.Forms.RadioButton rdoLineBresenham;
         private System.Windows.Forms.RadioButton rdoLineDda;
         private System.Windows.Forms.RadioButton rdoLineNaive;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpToolbox;
         private System.Windows.Forms.RadioButton rdoToolboxLine;
         private System.Windows.Forms.RadioButton rdoToolboxCircle;
         private System.Windows.Forms.Button btnRedraw;

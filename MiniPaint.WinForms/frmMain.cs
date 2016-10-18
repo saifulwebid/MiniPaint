@@ -88,5 +88,10 @@ namespace MiniPaint.WinForms
             circles.Clear();
             pnlCanvas.Invalidate();
         }
+
+        private void rdoToolboxLine_CheckedChanged(object sender, EventArgs e)
+        {
+            grpLineGeneratorAlgorithm.Enabled = rdoToolboxLine.Checked;
+        }
     }
 }
