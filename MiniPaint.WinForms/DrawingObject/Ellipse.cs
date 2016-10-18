@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
-    class Ellipse
+    class Ellipse : IDrawable
     {
         private Point center;
         private int rx, ry;

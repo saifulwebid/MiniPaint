@@ -12,9 +12,7 @@ namespace MiniPaint.WinForms
 {
     public partial class frmMain : Form
     {
-        private Stack<DrawingObject.Line> lines;
-        private Stack<DrawingObject.Circle> circles;
-        private Stack<DrawingObject.Ellipse> ellipses;
+        private Stack<IDrawable> objects;
         private Point startPoint;
         private bool dragging;
 
@@ -22,34 +20,15 @@ namespace MiniPaint.WinForms
         {
             InitializeComponent();
 
-            lines = new Stack<DrawingObject.Line>();
-            circles = new Stack<DrawingObject.Circle>();
-            ellipses = new Stack<DrawingObject.Ellipse>();
+            objects = new Stack<IDrawable>();
             dragging = false;
         }
 
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
         {
-            foreach (DrawingObject.Line l in lines)
+            foreach (IDrawable o in objects)
             {
-                if (rdoLineNaive.Checked)
-                    l.DrawNaive(e.Graphics);
-
-                if (rdoLineDda.Checked)
-                    l.DrawDDA(e.Graphics);
-
-                if (rdoLineBresenham.Checked)
-                    l.DrawBresenham(e.Graphics);
-            }
-
-            foreach (DrawingObject.Circle c in circles)
-            {
-                c.Draw(e.Graphics);
-            }
-
-            foreach (DrawingObject.Ellipse el in ellipses)
-            {
-                el.Draw(e.Graphics);
+                o.Draw(e.Graphics);
             }
         }
 
@@ -65,21 +44,32 @@ namespace MiniPaint.WinForms
             {
                 if (rdoToolboxLine.Checked)
                 {
-                    lines.Push(new DrawingObject.Line(startPoint, new Point(e.X, e.Y)));
+                    if (rdoLineBresenham.Checked)
+                    {
+                        objects.Push(new LineGenerator.Bresenham(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
+                    }
+                    else if (rdoLineDda.Checked)
+                    {
+                        objects.Push(new LineGenerator.Dda(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
+                    }
+                    else if (rdoLineNaive.Checked)
+                    {
+                        objects.Push(new LineGenerator.Naive(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
+                    }
                 }
                 else if (rdoToolboxCircle.Checked)
                 {
                     int radius = (int)Math.Sqrt((e.X - startPoint.X) * (e.X - startPoint.X) +
                         (e.Y - startPoint.Y) * (e.Y - startPoint.Y));
 
-                    circles.Push(new DrawingObject.Circle(startPoint, radius));
+                    objects.Push(new DrawingObject.Circle(startPoint, radius));
                 }
                 else if (rdoToolboxEllipse.Checked)
                 {
                     int rx = (int)(Math.Abs(e.X - startPoint.X) * 0.5);
                     int ry = (int)(Math.Abs(e.Y - startPoint.Y) * 0.5);
 
-                    ellipses.Push(new DrawingObject.Ellipse(new Point(Math.Min(e.X, startPoint.X) + rx, Math.Min(e.Y, startPoint.Y) + ry), rx, ry));
+                    objects.Push(new DrawingObject.Ellipse(new Point(Math.Min(e.X, startPoint.X) + rx, Math.Min(e.Y, startPoint.Y) + ry), rx, ry));
                 }
 
                 dragging = false;
@@ -99,8 +89,7 @@ namespace MiniPaint.WinForms
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            lines.Clear();
-            circles.Clear();
+            objects.Clear();
             pnlCanvas.Invalidate();
         }
 

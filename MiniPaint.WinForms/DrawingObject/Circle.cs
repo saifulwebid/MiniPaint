@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
-    class Circle
+    class Circle : IDrawable
     {
         private Point center;
         private int radius;
