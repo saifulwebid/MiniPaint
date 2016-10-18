@@ -82,7 +82,6 @@
             this.rdoLineBresenham.TabIndex = 2;
             this.rdoLineBresenham.Text = "Bresenham\'s algorithm";
             this.rdoLineBresenham.UseVisualStyleBackColor = true;
-            this.rdoLineBresenham.CheckedChanged += new System.EventHandler(this.allLineRadioBox_CheckedChanged);
             // 
             // rdoLineDda
             // 
@@ -93,7 +92,6 @@
             this.rdoLineDda.TabIndex = 1;
             this.rdoLineDda.Text = "DDA line algorithm";
             this.rdoLineDda.UseVisualStyleBackColor = true;
-            this.rdoLineDda.CheckedChanged += new System.EventHandler(this.allLineRadioBox_CheckedChanged);
             // 
             // rdoLineNaive
             // 
@@ -106,7 +104,6 @@
             this.rdoLineNaive.TabStop = true;
             this.rdoLineNaive.Text = "Naive line algorithm";
             this.rdoLineNaive.UseVisualStyleBackColor = true;
-            this.rdoLineNaive.CheckedChanged += new System.EventHandler(this.allLineRadioBox_CheckedChanged);
             // 
             // grpToolbox
             // 
@@ -181,6 +178,7 @@
             // 
             // btnUndo
             // 
+            this.btnUndo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUndo.Location = new System.Drawing.Point(750, 257);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(75, 23);

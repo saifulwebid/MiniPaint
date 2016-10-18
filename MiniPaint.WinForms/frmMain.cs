@@ -77,11 +77,6 @@ namespace MiniPaint.WinForms
             }
         }
 
-        private void allLineRadioBox_CheckedChanged(object sender, EventArgs e)
-        {
-            pnlCanvas.Invalidate();
-        }
-
         private void btnRedraw_Click(object sender, EventArgs e)
         {
             pnlCanvas.Invalidate();
