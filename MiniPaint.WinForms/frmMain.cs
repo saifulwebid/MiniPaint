@@ -97,5 +97,11 @@ namespace MiniPaint.WinForms
         {
             grpLineGeneratorAlgorithm.Enabled = rdoToolboxLine.Checked;
         }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            objects.Pop();
+            pnlCanvas.Invalidate();
+        }
     }
 }

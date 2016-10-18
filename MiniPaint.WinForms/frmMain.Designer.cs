@@ -34,11 +34,12 @@
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
             this.rdoLineNaive = new System.Windows.Forms.RadioButton();
             this.grpToolbox = new System.Windows.Forms.GroupBox();
+            this.rdoToolboxEllipse = new System.Windows.Forms.RadioButton();
             this.rdoToolboxCircle = new System.Windows.Forms.RadioButton();
             this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.rdoToolboxEllipse = new System.Windows.Forms.RadioButton();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.SuspendLayout();
@@ -121,6 +122,17 @@
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
             // 
+            // rdoToolboxEllipse
+            // 
+            this.rdoToolboxEllipse.AutoSize = true;
+            this.rdoToolboxEllipse.Location = new System.Drawing.Point(13, 82);
+            this.rdoToolboxEllipse.Name = "rdoToolboxEllipse";
+            this.rdoToolboxEllipse.Size = new System.Drawing.Size(70, 21);
+            this.rdoToolboxEllipse.TabIndex = 2;
+            this.rdoToolboxEllipse.TabStop = true;
+            this.rdoToolboxEllipse.Text = "Ellipse";
+            this.rdoToolboxEllipse.UseVisualStyleBackColor = true;
+            // 
             // rdoToolboxCircle
             // 
             this.rdoToolboxCircle.AutoSize = true;
@@ -167,22 +179,22 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // rdoToolboxEllipse
+            // btnUndo
             // 
-            this.rdoToolboxEllipse.AutoSize = true;
-            this.rdoToolboxEllipse.Location = new System.Drawing.Point(13, 82);
-            this.rdoToolboxEllipse.Name = "rdoToolboxEllipse";
-            this.rdoToolboxEllipse.Size = new System.Drawing.Size(70, 21);
-            this.rdoToolboxEllipse.TabIndex = 2;
-            this.rdoToolboxEllipse.TabStop = true;
-            this.rdoToolboxEllipse.Text = "Ellipse";
-            this.rdoToolboxEllipse.UseVisualStyleBackColor = true;
+            this.btnUndo.Location = new System.Drawing.Point(750, 257);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(75, 23);
+            this.btnUndo.TabIndex = 8;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 500);
+            this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRedraw);
             this.Controls.Add(this.grpToolbox);
@@ -211,6 +223,7 @@
         private System.Windows.Forms.Button btnRedraw;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.RadioButton rdoToolboxEllipse;
+        private System.Windows.Forms.Button btnUndo;
     }
 }
 
