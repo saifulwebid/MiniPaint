@@ -57,7 +57,9 @@
             this.pnlCanvas.TabIndex = 0;
             this.pnlCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
             this.pnlCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseDown);
+            this.pnlCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseMove);
             this.pnlCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
+            this.pnlCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
             // 
             // grpLineGeneratorAlgorithm
             // 

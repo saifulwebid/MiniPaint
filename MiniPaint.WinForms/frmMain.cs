@@ -15,77 +15,103 @@ namespace MiniPaint.WinForms
         private Stack<IDrawable> objects;
         private Point startPoint;
         private bool dragging;
+        private Bitmap drawingBitmap, preClickBitmap;
 
         public frmMain()
         {
+            drawingBitmap = new Bitmap(1, 1);
+
             InitializeComponent();
 
             objects = new Stack<IDrawable>();
             dragging = false;
+
+            pnlCanvas.Invalidate();
         }
 
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
         {
-            foreach (IDrawable o in objects)
-            {
-                o.Draw(e.Graphics);
-            }
+            e.Graphics.DrawImage(drawingBitmap, 0, 0);
         }
 
         private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
         {
             dragging = true;
             startPoint = new Point(e.X, e.Y);
+            preClickBitmap = (Bitmap)drawingBitmap.Clone();
         }
 
         private void pnlCanvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (dragging)
             {
-                if (rdoToolboxLine.Checked)
-                {
-                    if (rdoLineBresenham.Checked)
-                    {
-                        objects.Push(new LineGenerator.Bresenham(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
-                    }
-                    else if (rdoLineDda.Checked)
-                    {
-                        objects.Push(new LineGenerator.Dda(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
-                    }
-                    else if (rdoLineNaive.Checked)
-                    {
-                        objects.Push(new LineGenerator.Naive(new DrawingObject.Line(startPoint, new Point(e.X, e.Y))));
-                    }
-                }
-                else if (rdoToolboxCircle.Checked)
-                {
-                    int radius = (int)Math.Sqrt((e.X - startPoint.X) * (e.X - startPoint.X) +
-                        (e.Y - startPoint.Y) * (e.Y - startPoint.Y));
+                IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
+                objects.Push(objectToDraw);
 
-                    objects.Push(new DrawingObject.Circle(startPoint, radius));
-                }
-                else if (rdoToolboxEllipse.Checked)
+                drawingBitmap.Dispose();
+                drawingBitmap = (Bitmap)preClickBitmap.Clone();
+                using (Graphics g = Graphics.FromImage(drawingBitmap))
                 {
-                    int rx = Math.Abs(e.X - startPoint.X);
-                    int ry = Math.Abs(e.Y - startPoint.Y);
-
-                    objects.Push(new DrawingObject.Ellipse(startPoint, rx, ry));
+                    objectToDraw.Draw(g);
                 }
 
                 dragging = false;
+                preClickBitmap.Dispose();
                 pnlCanvas.Invalidate();
             }
         }
 
         private void btnRedraw_Click(object sender, EventArgs e)
         {
+            drawingBitmap.Dispose();
+            drawingBitmap = new Bitmap(pnlCanvas.Width, pnlCanvas.Height);
+
+            using (Graphics g = Graphics.FromImage(drawingBitmap))
+            {
+                foreach (IDrawable o in objects)
+                {
+                    o.Draw(g);
+                }
+            }
+
             pnlCanvas.Invalidate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             objects.Clear();
-            pnlCanvas.Invalidate();
+            btnRedraw_Click(sender, e);
+        }
+
+        private void pnlCanvas_Resize(object sender, EventArgs e)
+        {
+            Control o = (Control)sender;
+            Bitmap newBitmap = new Bitmap(o.Width, o.Height);
+
+            using (Graphics g = Graphics.FromImage(newBitmap))
+            {
+                g.DrawImage(drawingBitmap, 0, 0);
+            }
+
+            drawingBitmap.Dispose();
+            drawingBitmap = newBitmap;
+        }
+
+        private void pnlCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
+
+                drawingBitmap.Dispose();
+                drawingBitmap = (Bitmap)preClickBitmap.Clone();
+                using (Graphics g = Graphics.FromImage(drawingBitmap))
+                {
+                    objectToDraw.Draw(g);
+                }
+                
+                pnlCanvas.Invalidate();
+            }
         }
 
         private void rdoToolboxLine_CheckedChanged(object sender, EventArgs e)
@@ -96,7 +122,40 @@ namespace MiniPaint.WinForms
         private void btnUndo_Click(object sender, EventArgs e)
         {
             objects.Pop();
-            pnlCanvas.Invalidate();
+            btnRedraw_Click(sender, e);
+        }
+
+        private IDrawable getDrawnObject(Point start, Point end)
+        {
+            if (rdoToolboxLine.Checked)
+            {
+                if (rdoLineBresenham.Checked)
+                {
+                    return new LineGenerator.Bresenham(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                }
+                else if (rdoLineDda.Checked)
+                {
+                    return new LineGenerator.Dda(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                }
+                else
+                {
+                    return new LineGenerator.Naive(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                }
+            }
+            else if (rdoToolboxCircle.Checked)
+            {
+                int radius = (int)Math.Sqrt((end.X - start.X) * (end.X - start.X) +
+                    (end.Y - start.Y) * (end.Y - start.Y));
+
+                return new DrawingObject.Circle(start, radius);
+            }
+            else
+            {
+                int rx = Math.Abs(end.X - start.X);
+                int ry = Math.Abs(end.Y - start.Y);
+
+                return new DrawingObject.Ellipse(start, rx, ry);
+            }
         }
     }
 }
