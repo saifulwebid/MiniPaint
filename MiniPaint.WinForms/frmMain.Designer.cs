@@ -34,16 +34,22 @@
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
             this.rdoLineNaive = new System.Windows.Forms.RadioButton();
             this.grpToolbox = new System.Windows.Forms.GroupBox();
+            this.rdoToolboxStar = new System.Windows.Forms.RadioButton();
+            this.rdoToolboxRegularPolygon = new System.Windows.Forms.RadioButton();
             this.rdoToolboxEllipse = new System.Windows.Forms.RadioButton();
             this.rdoToolboxCircle = new System.Windows.Forms.RadioButton();
             this.rdoToolboxLine = new System.Windows.Forms.RadioButton();
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
-            this.rdoToolboxRegularPolygon = new System.Windows.Forms.RadioButton();
-            this.rdoToolboxStar = new System.Windows.Forms.RadioButton();
+            this.grpNGonOptions = new System.Windows.Forms.GroupBox();
+            this.txtNGonSkip = new System.Windows.Forms.TextBox();
+            this.txtNGonEdges = new System.Windows.Forms.TextBox();
+            this.lblNGonSkip = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
+            this.grpNGonOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCanvas
@@ -125,6 +131,30 @@
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
             // 
+            // rdoToolboxStar
+            // 
+            this.rdoToolboxStar.AutoSize = true;
+            this.rdoToolboxStar.Location = new System.Drawing.Point(13, 136);
+            this.rdoToolboxStar.Name = "rdoToolboxStar";
+            this.rdoToolboxStar.Size = new System.Drawing.Size(55, 21);
+            this.rdoToolboxStar.TabIndex = 4;
+            this.rdoToolboxStar.TabStop = true;
+            this.rdoToolboxStar.Text = "Star";
+            this.rdoToolboxStar.UseVisualStyleBackColor = true;
+            this.rdoToolboxStar.CheckedChanged += new System.EventHandler(this.toolboxNGon_CheckedChanged);
+            // 
+            // rdoToolboxRegularPolygon
+            // 
+            this.rdoToolboxRegularPolygon.AutoSize = true;
+            this.rdoToolboxRegularPolygon.Location = new System.Drawing.Point(13, 109);
+            this.rdoToolboxRegularPolygon.Name = "rdoToolboxRegularPolygon";
+            this.rdoToolboxRegularPolygon.Size = new System.Drawing.Size(133, 21);
+            this.rdoToolboxRegularPolygon.TabIndex = 3;
+            this.rdoToolboxRegularPolygon.TabStop = true;
+            this.rdoToolboxRegularPolygon.Text = "Regular polygon";
+            this.rdoToolboxRegularPolygon.UseVisualStyleBackColor = true;
+            this.rdoToolboxRegularPolygon.CheckedChanged += new System.EventHandler(this.toolboxNGon_CheckedChanged);
+            // 
             // rdoToolboxEllipse
             // 
             this.rdoToolboxEllipse.AutoSize = true;
@@ -163,7 +193,7 @@
             // btnRedraw
             // 
             this.btnRedraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRedraw.Location = new System.Drawing.Point(586, 310);
+            this.btnRedraw.Location = new System.Drawing.Point(587, 407);
             this.btnRedraw.Name = "btnRedraw";
             this.btnRedraw.Size = new System.Drawing.Size(75, 23);
             this.btnRedraw.TabIndex = 6;
@@ -174,7 +204,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(667, 310);
+            this.btnClear.Location = new System.Drawing.Point(668, 407);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 7;
@@ -185,7 +215,7 @@
             // btnUndo
             // 
             this.btnUndo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUndo.Location = new System.Drawing.Point(748, 310);
+            this.btnUndo.Location = new System.Drawing.Point(749, 407);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(75, 23);
             this.btnUndo.TabIndex = 8;
@@ -193,33 +223,60 @@
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
-            // rdoToolboxRegularPolygon
+            // grpNGonOptions
             // 
-            this.rdoToolboxRegularPolygon.AutoSize = true;
-            this.rdoToolboxRegularPolygon.Location = new System.Drawing.Point(13, 109);
-            this.rdoToolboxRegularPolygon.Name = "rdoToolboxRegularPolygon";
-            this.rdoToolboxRegularPolygon.Size = new System.Drawing.Size(133, 21);
-            this.rdoToolboxRegularPolygon.TabIndex = 3;
-            this.rdoToolboxRegularPolygon.TabStop = true;
-            this.rdoToolboxRegularPolygon.Text = "Regular polygon";
-            this.rdoToolboxRegularPolygon.UseVisualStyleBackColor = true;
+            this.grpNGonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpNGonOptions.Controls.Add(this.txtNGonSkip);
+            this.grpNGonOptions.Controls.Add(this.txtNGonEdges);
+            this.grpNGonOptions.Controls.Add(this.lblNGonSkip);
+            this.grpNGonOptions.Controls.Add(this.label1);
+            this.grpNGonOptions.Location = new System.Drawing.Point(587, 310);
+            this.grpNGonOptions.Name = "grpNGonOptions";
+            this.grpNGonOptions.Padding = new System.Windows.Forms.Padding(10);
+            this.grpNGonOptions.Size = new System.Drawing.Size(239, 91);
+            this.grpNGonOptions.TabIndex = 5;
+            this.grpNGonOptions.TabStop = false;
+            this.grpNGonOptions.Text = "n-gon options";
             // 
-            // rdoToolboxStar
+            // txtNGonSkip
             // 
-            this.rdoToolboxStar.AutoSize = true;
-            this.rdoToolboxStar.Location = new System.Drawing.Point(13, 136);
-            this.rdoToolboxStar.Name = "rdoToolboxStar";
-            this.rdoToolboxStar.Size = new System.Drawing.Size(55, 21);
-            this.rdoToolboxStar.TabIndex = 4;
-            this.rdoToolboxStar.TabStop = true;
-            this.rdoToolboxStar.Text = "Star";
-            this.rdoToolboxStar.UseVisualStyleBackColor = true;
+            this.txtNGonSkip.Location = new System.Drawing.Point(71, 56);
+            this.txtNGonSkip.Name = "txtNGonSkip";
+            this.txtNGonSkip.Size = new System.Drawing.Size(100, 22);
+            this.txtNGonSkip.TabIndex = 3;
+            // 
+            // txtNGonEdges
+            // 
+            this.txtNGonEdges.Location = new System.Drawing.Point(71, 28);
+            this.txtNGonEdges.Name = "txtNGonEdges";
+            this.txtNGonEdges.Size = new System.Drawing.Size(100, 22);
+            this.txtNGonEdges.TabIndex = 2;
+            this.txtNGonEdges.Text = "5";
+            // 
+            // lblNGonSkip
+            // 
+            this.lblNGonSkip.AutoSize = true;
+            this.lblNGonSkip.Location = new System.Drawing.Point(13, 59);
+            this.lblNGonSkip.Name = "lblNGonSkip";
+            this.lblNGonSkip.Size = new System.Drawing.Size(39, 17);
+            this.lblNGonSkip.TabIndex = 1;
+            this.lblNGonSkip.Text = "Skip:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Edges:";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 500);
+            this.Controls.Add(this.grpNGonOptions);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRedraw);
@@ -232,6 +289,8 @@
             this.grpLineGeneratorAlgorithm.PerformLayout();
             this.grpToolbox.ResumeLayout(false);
             this.grpToolbox.PerformLayout();
+            this.grpNGonOptions.ResumeLayout(false);
+            this.grpNGonOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -252,6 +311,11 @@
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.RadioButton rdoToolboxStar;
         private System.Windows.Forms.RadioButton rdoToolboxRegularPolygon;
+        private System.Windows.Forms.GroupBox grpNGonOptions;
+        private System.Windows.Forms.TextBox txtNGonSkip;
+        private System.Windows.Forms.TextBox txtNGonEdges;
+        private System.Windows.Forms.Label lblNGonSkip;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -26,6 +26,8 @@ namespace MiniPaint.WinForms
             objects = new Stack<IDrawable>();
             dragging = false;
 
+            rdoToolboxLine_CheckedChanged(null, null);
+            toolboxNGon_CheckedChanged(null, null);
             pnlCanvas.Invalidate();
         }
 
@@ -123,6 +125,12 @@ namespace MiniPaint.WinForms
         {
             objects.Pop();
             btnRedraw_Click(sender, e);
+        }
+
+        private void toolboxNGon_CheckedChanged(object sender, EventArgs e)
+        {
+            grpNGonOptions.Enabled = rdoToolboxRegularPolygon.Checked || rdoToolboxStar.Checked;
+            txtNGonSkip.Enabled = lblNGonSkip.Enabled = rdoToolboxStar.Checked;
         }
 
         private IDrawable getDrawnObject(Point start, Point end)
