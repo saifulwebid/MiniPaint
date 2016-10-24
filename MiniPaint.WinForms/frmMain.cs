@@ -41,6 +41,8 @@ namespace MiniPaint.WinForms
             dragging = true;
             startPoint = new Point(e.X, e.Y);
             preClickBitmap = (Bitmap)drawingBitmap.Clone();
+
+            ValidateChildren();
         }
 
         private void pnlCanvas_MouseUp(object sender, MouseEventArgs e)
