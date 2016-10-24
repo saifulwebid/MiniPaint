@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlCanvas = new System.Windows.Forms.Panel();
             this.grpLineGeneratorAlgorithm = new System.Windows.Forms.GroupBox();
             this.rdoLineBresenham = new System.Windows.Forms.RadioButton();
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
@@ -47,27 +46,12 @@
             this.txtNGonEdges = new System.Windows.Forms.TextBox();
             this.lblNGonSkip = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pbxCanvas = new System.Windows.Forms.PictureBox();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.grpNGonOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pnlCanvas
-            // 
-            this.pnlCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlCanvas.BackColor = System.Drawing.Color.White;
-            this.pnlCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCanvas.Location = new System.Drawing.Point(13, 12);
-            this.pnlCanvas.Name = "pnlCanvas";
-            this.pnlCanvas.Size = new System.Drawing.Size(568, 476);
-            this.pnlCanvas.TabIndex = 0;
-            this.pnlCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
-            this.pnlCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseDown);
-            this.pnlCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseMove);
-            this.pnlCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
-            this.pnlCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
             // 
             // grpLineGeneratorAlgorithm
             // 
@@ -253,6 +237,7 @@
             this.txtNGonEdges.Size = new System.Drawing.Size(100, 22);
             this.txtNGonEdges.TabIndex = 2;
             this.txtNGonEdges.Text = "5";
+            this.txtNGonEdges.Validating += new System.ComponentModel.CancelEventHandler(this.txtNGonEdges_Validating);
             // 
             // lblNGonSkip
             // 
@@ -272,18 +257,36 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Edges:";
             // 
+            // pbxCanvas
+            // 
+            this.pbxCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbxCanvas.BackColor = System.Drawing.Color.White;
+            this.pbxCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxCanvas.Location = new System.Drawing.Point(12, 12);
+            this.pbxCanvas.Name = "pbxCanvas";
+            this.pbxCanvas.Size = new System.Drawing.Size(568, 476);
+            this.pbxCanvas.TabIndex = 9;
+            this.pbxCanvas.TabStop = false;
+            this.pbxCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
+            this.pbxCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseDown);
+            this.pbxCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseMove);
+            this.pbxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
+            this.pbxCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 500);
+            this.Controls.Add(this.pbxCanvas);
             this.Controls.Add(this.grpNGonOptions);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnRedraw);
             this.Controls.Add(this.grpToolbox);
             this.Controls.Add(this.grpLineGeneratorAlgorithm);
-            this.Controls.Add(this.pnlCanvas);
             this.Name = "frmMain";
             this.Text = "MiniPaint";
             this.grpLineGeneratorAlgorithm.ResumeLayout(false);
@@ -292,13 +295,12 @@
             this.grpToolbox.PerformLayout();
             this.grpNGonOptions.ResumeLayout(false);
             this.grpNGonOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlCanvas;
         private System.Windows.Forms.GroupBox grpLineGeneratorAlgorithm;
         private System.Windows.Forms.RadioButton rdoLineBresenham;
         private System.Windows.Forms.RadioButton rdoLineDda;
@@ -317,6 +319,7 @@
         private System.Windows.Forms.TextBox txtNGonEdges;
         private System.Windows.Forms.Label lblNGonSkip;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pbxCanvas;
     }
 }
 

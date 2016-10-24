@@ -28,7 +28,7 @@ namespace MiniPaint.WinForms
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
-            pnlCanvas.Invalidate();
+            pbxCanvas.Invalidate();
         }
 
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
@@ -59,14 +59,14 @@ namespace MiniPaint.WinForms
 
                 dragging = false;
                 preClickBitmap.Dispose();
-                pnlCanvas.Invalidate();
+                ((Control)sender).Invalidate();
             }
         }
 
         private void btnRedraw_Click(object sender, EventArgs e)
         {
             drawingBitmap.Dispose();
-            drawingBitmap = new Bitmap(pnlCanvas.Width, pnlCanvas.Height);
+            drawingBitmap = new Bitmap(((Control)sender).Width, ((Control)sender).Height);
 
             using (Graphics g = Graphics.FromImage(drawingBitmap))
             {
@@ -76,7 +76,7 @@ namespace MiniPaint.WinForms
                 }
             }
 
-            pnlCanvas.Invalidate();
+            ((Control)sender).Invalidate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -111,8 +111,8 @@ namespace MiniPaint.WinForms
                 {
                     objectToDraw.Draw(g);
                 }
-                
-                pnlCanvas.Invalidate();
+
+                ((Control)sender).Invalidate();
             }
         }
 
@@ -131,6 +131,26 @@ namespace MiniPaint.WinForms
         {
             grpNGonOptions.Enabled = rdoToolboxRegularPolygon.Checked || rdoToolboxStar.Checked;
             txtNGonSkip.Enabled = lblNGonSkip.Enabled = rdoToolboxStar.Checked;
+        }
+
+        private void txtNGonEdges_Validating(object sender, CancelEventArgs e)
+        {
+            int value;
+
+            try
+            {
+                value = Convert.ToInt32(((TextBox)sender).Text);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            if (value < 3)
+            {
+                MessageBox.Show("Edge n-gon tidak boleh kurang dari 3.");
+                e.Cancel = true;
+            }
         }
 
         private IDrawable getDrawnObject(Point start, Point end)
