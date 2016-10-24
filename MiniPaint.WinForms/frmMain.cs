@@ -155,6 +155,7 @@ namespace MiniPaint.WinForms
                     MessageBox.Show("Edge n-gon harus berisi angka.", "Validation error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
+                    ((TextBox)sender).SelectAll();
                     return;
                 }
 
@@ -163,6 +164,7 @@ namespace MiniPaint.WinForms
                     MessageBox.Show("N-gon harus memiliki minimal tiga edge.", "Validation error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
+                    ((TextBox)sender).SelectAll();
                     return;
                 }
 
@@ -181,6 +183,7 @@ namespace MiniPaint.WinForms
                     MessageBox.Show(String.Format("Edge n-gon minimal sama dengan 2 * skip + 1 = {0}.", 2 * skip + 1),
                         "Validation error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
+                    ((TextBox)sender).SelectAll();
                     return;
                 }
             }
@@ -201,6 +204,7 @@ namespace MiniPaint.WinForms
                     MessageBox.Show("Skip n-gon harus berisi angka.", "Validation error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
+                    ((TextBox)sender).SelectAll();
                     return;
                 }
             }
