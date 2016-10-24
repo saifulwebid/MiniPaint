@@ -49,6 +49,7 @@
     <Compile Include="DrawingObject\Circle.cs" />
     <Compile Include="DrawingObject\Ellipse.cs" />
     <Compile Include="DrawingObject\Line.cs" />
+    <Compile Include="DrawingObject\RegularPolygon.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
