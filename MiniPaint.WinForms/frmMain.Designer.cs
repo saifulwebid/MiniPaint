@@ -244,6 +244,7 @@
             this.txtNGonSkip.Name = "txtNGonSkip";
             this.txtNGonSkip.Size = new System.Drawing.Size(100, 22);
             this.txtNGonSkip.TabIndex = 3;
+            this.txtNGonSkip.Text = "2";
             // 
             // txtNGonEdges
             // 
