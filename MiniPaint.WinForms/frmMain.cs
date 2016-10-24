@@ -149,12 +149,20 @@ namespace MiniPaint.WinForms
 
                 return new DrawingObject.Circle(start, radius);
             }
-            else
+            else if (rdoToolboxEllipse.Checked)
             {
                 int rx = Math.Abs(end.X - start.X);
                 int ry = Math.Abs(end.Y - start.Y);
 
                 return new DrawingObject.Ellipse(start, rx, ry);
+            }
+            else if (rdoToolboxRegularPolygon.Checked)
+            {
+                throw new NotImplementedException();
+            }
+            else // rdoToolboxStar.Checked
+            {
+                throw new NotImplementedException();
             }
         }
     }

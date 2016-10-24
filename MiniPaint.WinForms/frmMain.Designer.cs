@@ -40,6 +40,8 @@
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
+            this.rdoToolboxRegularPolygon = new System.Windows.Forms.RadioButton();
+            this.rdoToolboxStar = new System.Windows.Forms.RadioButton();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +69,7 @@
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineBresenham);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineDda);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineNaive);
-            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(587, 134);
+            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(586, 188);
             this.grpLineGeneratorAlgorithm.Name = "grpLineGeneratorAlgorithm";
             this.grpLineGeneratorAlgorithm.Padding = new System.Windows.Forms.Padding(10);
             this.grpLineGeneratorAlgorithm.Size = new System.Drawing.Size(239, 116);
@@ -110,13 +112,15 @@
             // grpToolbox
             // 
             this.grpToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpToolbox.Controls.Add(this.rdoToolboxStar);
+            this.grpToolbox.Controls.Add(this.rdoToolboxRegularPolygon);
             this.grpToolbox.Controls.Add(this.rdoToolboxEllipse);
             this.grpToolbox.Controls.Add(this.rdoToolboxCircle);
             this.grpToolbox.Controls.Add(this.rdoToolboxLine);
             this.grpToolbox.Location = new System.Drawing.Point(587, 12);
             this.grpToolbox.Name = "grpToolbox";
             this.grpToolbox.Padding = new System.Windows.Forms.Padding(10);
-            this.grpToolbox.Size = new System.Drawing.Size(239, 116);
+            this.grpToolbox.Size = new System.Drawing.Size(239, 170);
             this.grpToolbox.TabIndex = 5;
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
@@ -159,7 +163,7 @@
             // btnRedraw
             // 
             this.btnRedraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRedraw.Location = new System.Drawing.Point(588, 257);
+            this.btnRedraw.Location = new System.Drawing.Point(586, 310);
             this.btnRedraw.Name = "btnRedraw";
             this.btnRedraw.Size = new System.Drawing.Size(75, 23);
             this.btnRedraw.TabIndex = 6;
@@ -170,7 +174,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(669, 257);
+            this.btnClear.Location = new System.Drawing.Point(667, 310);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 7;
@@ -181,13 +185,35 @@
             // btnUndo
             // 
             this.btnUndo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUndo.Location = new System.Drawing.Point(750, 257);
+            this.btnUndo.Location = new System.Drawing.Point(748, 310);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(75, 23);
             this.btnUndo.TabIndex = 8;
             this.btnUndo.Text = "Undo";
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // rdoToolboxRegularPolygon
+            // 
+            this.rdoToolboxRegularPolygon.AutoSize = true;
+            this.rdoToolboxRegularPolygon.Location = new System.Drawing.Point(13, 109);
+            this.rdoToolboxRegularPolygon.Name = "rdoToolboxRegularPolygon";
+            this.rdoToolboxRegularPolygon.Size = new System.Drawing.Size(133, 21);
+            this.rdoToolboxRegularPolygon.TabIndex = 3;
+            this.rdoToolboxRegularPolygon.TabStop = true;
+            this.rdoToolboxRegularPolygon.Text = "Regular polygon";
+            this.rdoToolboxRegularPolygon.UseVisualStyleBackColor = true;
+            // 
+            // rdoToolboxStar
+            // 
+            this.rdoToolboxStar.AutoSize = true;
+            this.rdoToolboxStar.Location = new System.Drawing.Point(13, 136);
+            this.rdoToolboxStar.Name = "rdoToolboxStar";
+            this.rdoToolboxStar.Size = new System.Drawing.Size(55, 21);
+            this.rdoToolboxStar.TabIndex = 4;
+            this.rdoToolboxStar.TabStop = true;
+            this.rdoToolboxStar.Text = "Star";
+            this.rdoToolboxStar.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -224,6 +250,8 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.RadioButton rdoToolboxEllipse;
         private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.RadioButton rdoToolboxStar;
+        private System.Windows.Forms.RadioButton rdoToolboxRegularPolygon;
     }
 }
 
