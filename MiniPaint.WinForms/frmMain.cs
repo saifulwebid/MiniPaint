@@ -42,7 +42,12 @@ namespace MiniPaint.WinForms
             startPoint = new Point(e.X, e.Y);
             preClickBitmap = (Bitmap)drawingBitmap.Clone();
 
-            ValidateChildren();
+            CancelEventArgs c = new CancelEventArgs();
+            txtNGonEdges_Validating(txtNGonEdges, c);
+            if (c.Cancel == false)
+            {
+                txtNGonSkip_Validating(txtNGonEdges, c);
+            }
         }
 
         private void pnlCanvas_MouseUp(object sender, MouseEventArgs e)
@@ -137,21 +142,67 @@ namespace MiniPaint.WinForms
 
         private void txtNGonEdges_Validating(object sender, CancelEventArgs e)
         {
-            int value;
+            if (((Control)sender).Enabled)
+            {
+                int value, skip;
 
-            try
-            {
-                value = Convert.ToInt32(((TextBox)sender).Text);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                try
+                {
+                    value = Convert.ToInt32(((TextBox)sender).Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Edge n-gon harus berisi angka.", "Validation error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                    return;
+                }
 
-            if (value < 3)
+                if (value < 3)
+                {
+                    MessageBox.Show("N-gon harus memiliki minimal tiga edge.", "Validation error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                    return;
+                }
+
+                CancelEventArgs skipCancel = new CancelEventArgs();
+                txtNGonSkip_Validating(txtNGonSkip, skipCancel);
+                if (skipCancel.Cancel == true)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                skip = Convert.ToInt32(txtNGonSkip.Text);
+
+                if (rdoToolboxStar.Checked && value < 2 * skip + 1)
+                {
+                    MessageBox.Show(String.Format("Edge n-gon minimal sama dengan 2 * skip + 1 = {0}.", 2 * skip + 1),
+                        "Validation error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+
+        private void txtNGonSkip_Validating(object sender, CancelEventArgs e)
+        {
+            if (((Control)sender).Enabled)
             {
-                MessageBox.Show("Edge n-gon tidak boleh kurang dari 3.");
-                e.Cancel = true;
+                int skip;
+
+                try
+                {
+                    skip = Convert.ToInt32(((Control)sender).Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Skip n-gon harus berisi angka.", "Validation error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                    return;
+                }
             }
         }
 

@@ -229,6 +229,7 @@
             this.txtNGonSkip.Size = new System.Drawing.Size(100, 22);
             this.txtNGonSkip.TabIndex = 3;
             this.txtNGonSkip.Text = "2";
+            this.txtNGonSkip.Validating += new System.ComponentModel.CancelEventHandler(this.txtNGonSkip_Validating);
             // 
             // txtNGonEdges
             // 
