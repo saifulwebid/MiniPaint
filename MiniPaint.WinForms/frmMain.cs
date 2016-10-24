@@ -166,7 +166,11 @@ namespace MiniPaint.WinForms
             }
             else if (rdoToolboxRegularPolygon.Checked)
             {
-                throw new NotImplementedException();
+                double circumradius = Math.Sqrt((end.X - start.X) * (end.X - start.X) +
+                    (end.Y - start.Y) * (end.Y - start.Y));
+                double angle = Math.Atan2(start.Y - end.Y, end.X - start.X);
+
+                return new DrawingObject.RegularPolygon(start, circumradius, Convert.ToInt32(txtNGonEdges.Text), angle);
             }
             else // rdoToolboxStar.Checked
             {
