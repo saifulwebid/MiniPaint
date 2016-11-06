@@ -13,9 +13,12 @@ namespace MiniPaint.WinForms
     public partial class frmMain : Form
     {
         private Stack<IDrawable> objects;
+        private Stack<IDrawable> geoObjects, mathObjects;
+        private DrawingObject.Axis axis;
         private Point startPoint;
         private bool dragging;
         private Bitmap drawingBitmap, preClickBitmap;
+        private int scale = (1 << 6);
 
         public frmMain()
         {
@@ -23,12 +26,15 @@ namespace MiniPaint.WinForms
 
             InitializeComponent();
 
-            objects = new Stack<IDrawable>();
+            geoObjects = new Stack<IDrawable>();
+            mathObjects = new Stack<IDrawable>();
+            mathObjects.Push(new DrawingObject.PolynomialFunction(new double[] { -1, 0, 0.0001 }, pbxCanvas.Height, pbxCanvas.Width, scale));
+            axis = new DrawingObject.Axis(pbxCanvas.Height, pbxCanvas.Width, scale);
             dragging = false;
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
-            pbxCanvas.Invalidate();
+            rdoToolboxPolynomialFunction_CheckedChanged(null, null);
         }
 
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
@@ -38,15 +44,18 @@ namespace MiniPaint.WinForms
 
         private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
         {
-            dragging = true;
-            startPoint = new Point(e.X, e.Y);
-            preClickBitmap = (Bitmap)drawingBitmap.Clone();
-
-            CancelEventArgs c = new CancelEventArgs();
-            txtNGonEdges_Validating(txtNGonEdges, c);
-            if (c.Cancel == false)
+            if (!rdoToolboxPolynomialFunction.Checked)
             {
-                txtNGonSkip_Validating(txtNGonEdges, c);
+                dragging = true;
+                startPoint = new Point(e.X, e.Y);
+                preClickBitmap = (Bitmap)drawingBitmap.Clone();
+
+                CancelEventArgs c = new CancelEventArgs();
+                txtNGonEdges_Validating(txtNGonEdges, c);
+                if (c.Cancel == false)
+                {
+                    txtNGonSkip_Validating(txtNGonEdges, c);
+                }
             }
         }
 
@@ -55,7 +64,7 @@ namespace MiniPaint.WinForms
             if (dragging)
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
-                objects.Push(objectToDraw);
+                geoObjects.Push(objectToDraw);
 
                 drawingBitmap.Dispose();
                 drawingBitmap = (Bitmap)preClickBitmap.Clone();
@@ -77,6 +86,11 @@ namespace MiniPaint.WinForms
 
             using (Graphics g = Graphics.FromImage(drawingBitmap))
             {
+                if (rdoToolboxPolynomialFunction.Checked)
+                {
+                    axis.Draw(g);
+                }
+
                 foreach (IDrawable o in objects)
                 {
                     o.Draw(g);
@@ -104,11 +118,21 @@ namespace MiniPaint.WinForms
 
             drawingBitmap.Dispose();
             drawingBitmap = newBitmap;
+
+            if (rdoToolboxPolynomialFunction.Checked)
+            {
+                axis.ResetAxisSize(o.Height, o.Width);
+                foreach (DrawingObject.PolynomialFunction obj in mathObjects)
+                {
+                    obj.ResetAxisSize(o.Height, o.Width);
+                }
+                btnRedraw_Click(sender, e);
+            }
         }
 
         private void pnlCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && dragging)
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
 
@@ -208,6 +232,31 @@ namespace MiniPaint.WinForms
                     return;
                 }
             }
+        }
+
+        private void rdoToolboxPolynomialFunction_CheckedChanged(object sender, EventArgs e)
+        {
+            grpPolynomialFunction.Enabled = rdoToolboxPolynomialFunction.Checked;
+            if (rdoToolboxPolynomialFunction.Checked)
+            {
+                objects = mathObjects;
+            } else
+            {
+                objects = geoObjects;
+            }
+            btnRedraw_Click(sender, e);
+        }
+
+        private void btnZoomIn_Click(object sender, EventArgs e)
+        {
+            scale = (scale << 1);
+            btnZoomOut.Enabled = (scale > 1);
+        }
+
+        private void btnZoomOut_Click(object sender, EventArgs e)
+        {
+            scale = (scale >> 1);
+            btnZoomOut.Enabled = (scale > 1);
         }
 
         private IDrawable getDrawnObject(Point start, Point end)

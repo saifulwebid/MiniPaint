@@ -47,10 +47,15 @@
             this.lblNGonSkip = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pbxCanvas = new System.Windows.Forms.PictureBox();
+            this.rdoToolboxPolynomialFunction = new System.Windows.Forms.RadioButton();
+            this.grpPolynomialFunction = new System.Windows.Forms.GroupBox();
+            this.btnZoomIn = new System.Windows.Forms.Button();
+            this.btnZoomOut = new System.Windows.Forms.Button();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.grpNGonOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).BeginInit();
+            this.grpPolynomialFunction.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpLineGeneratorAlgorithm
@@ -59,7 +64,7 @@
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineBresenham);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineDda);
             this.grpLineGeneratorAlgorithm.Controls.Add(this.rdoLineNaive);
-            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(586, 188);
+            this.grpLineGeneratorAlgorithm.Location = new System.Drawing.Point(724, 161);
             this.grpLineGeneratorAlgorithm.Name = "grpLineGeneratorAlgorithm";
             this.grpLineGeneratorAlgorithm.Padding = new System.Windows.Forms.Padding(10);
             this.grpLineGeneratorAlgorithm.Size = new System.Drawing.Size(239, 116);
@@ -102,15 +107,16 @@
             // grpToolbox
             // 
             this.grpToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpToolbox.Controls.Add(this.rdoToolboxPolynomialFunction);
             this.grpToolbox.Controls.Add(this.rdoToolboxStar);
             this.grpToolbox.Controls.Add(this.rdoToolboxRegularPolygon);
             this.grpToolbox.Controls.Add(this.rdoToolboxEllipse);
             this.grpToolbox.Controls.Add(this.rdoToolboxCircle);
             this.grpToolbox.Controls.Add(this.rdoToolboxLine);
-            this.grpToolbox.Location = new System.Drawing.Point(587, 12);
+            this.grpToolbox.Location = new System.Drawing.Point(724, 12);
             this.grpToolbox.Name = "grpToolbox";
             this.grpToolbox.Padding = new System.Windows.Forms.Padding(10);
-            this.grpToolbox.Size = new System.Drawing.Size(239, 170);
+            this.grpToolbox.Size = new System.Drawing.Size(239, 143);
             this.grpToolbox.TabIndex = 5;
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
@@ -118,7 +124,7 @@
             // rdoToolboxStar
             // 
             this.rdoToolboxStar.AutoSize = true;
-            this.rdoToolboxStar.Location = new System.Drawing.Point(13, 136);
+            this.rdoToolboxStar.Location = new System.Drawing.Point(115, 55);
             this.rdoToolboxStar.Name = "rdoToolboxStar";
             this.rdoToolboxStar.Size = new System.Drawing.Size(55, 21);
             this.rdoToolboxStar.TabIndex = 4;
@@ -130,7 +136,7 @@
             // rdoToolboxRegularPolygon
             // 
             this.rdoToolboxRegularPolygon.AutoSize = true;
-            this.rdoToolboxRegularPolygon.Location = new System.Drawing.Point(13, 109);
+            this.rdoToolboxRegularPolygon.Location = new System.Drawing.Point(13, 82);
             this.rdoToolboxRegularPolygon.Name = "rdoToolboxRegularPolygon";
             this.rdoToolboxRegularPolygon.Size = new System.Drawing.Size(133, 21);
             this.rdoToolboxRegularPolygon.TabIndex = 3;
@@ -142,7 +148,7 @@
             // rdoToolboxEllipse
             // 
             this.rdoToolboxEllipse.AutoSize = true;
-            this.rdoToolboxEllipse.Location = new System.Drawing.Point(13, 82);
+            this.rdoToolboxEllipse.Location = new System.Drawing.Point(115, 28);
             this.rdoToolboxEllipse.Name = "rdoToolboxEllipse";
             this.rdoToolboxEllipse.Size = new System.Drawing.Size(70, 21);
             this.rdoToolboxEllipse.TabIndex = 2;
@@ -177,7 +183,7 @@
             // btnRedraw
             // 
             this.btnRedraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRedraw.Location = new System.Drawing.Point(587, 407);
+            this.btnRedraw.Location = new System.Drawing.Point(724, 422);
             this.btnRedraw.Name = "btnRedraw";
             this.btnRedraw.Size = new System.Drawing.Size(75, 23);
             this.btnRedraw.TabIndex = 6;
@@ -188,7 +194,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(668, 407);
+            this.btnClear.Location = new System.Drawing.Point(805, 422);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 7;
@@ -199,7 +205,7 @@
             // btnUndo
             // 
             this.btnUndo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUndo.Location = new System.Drawing.Point(749, 407);
+            this.btnUndo.Location = new System.Drawing.Point(886, 422);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(75, 23);
             this.btnUndo.TabIndex = 8;
@@ -214,19 +220,19 @@
             this.grpNGonOptions.Controls.Add(this.txtNGonEdges);
             this.grpNGonOptions.Controls.Add(this.lblNGonSkip);
             this.grpNGonOptions.Controls.Add(this.label1);
-            this.grpNGonOptions.Location = new System.Drawing.Point(587, 310);
+            this.grpNGonOptions.Location = new System.Drawing.Point(724, 283);
             this.grpNGonOptions.Name = "grpNGonOptions";
             this.grpNGonOptions.Padding = new System.Windows.Forms.Padding(10);
-            this.grpNGonOptions.Size = new System.Drawing.Size(239, 91);
+            this.grpNGonOptions.Size = new System.Drawing.Size(239, 63);
             this.grpNGonOptions.TabIndex = 5;
             this.grpNGonOptions.TabStop = false;
             this.grpNGonOptions.Text = "n-gon options";
             // 
             // txtNGonSkip
             // 
-            this.txtNGonSkip.Location = new System.Drawing.Point(71, 56);
+            this.txtNGonSkip.Location = new System.Drawing.Point(176, 28);
             this.txtNGonSkip.Name = "txtNGonSkip";
-            this.txtNGonSkip.Size = new System.Drawing.Size(100, 22);
+            this.txtNGonSkip.Size = new System.Drawing.Size(45, 22);
             this.txtNGonSkip.TabIndex = 3;
             this.txtNGonSkip.Text = "2";
             this.txtNGonSkip.Validating += new System.ComponentModel.CancelEventHandler(this.txtNGonSkip_Validating);
@@ -235,7 +241,7 @@
             // 
             this.txtNGonEdges.Location = new System.Drawing.Point(71, 28);
             this.txtNGonEdges.Name = "txtNGonEdges";
-            this.txtNGonEdges.Size = new System.Drawing.Size(100, 22);
+            this.txtNGonEdges.Size = new System.Drawing.Size(45, 22);
             this.txtNGonEdges.TabIndex = 2;
             this.txtNGonEdges.Text = "5";
             this.txtNGonEdges.Validating += new System.ComponentModel.CancelEventHandler(this.txtNGonEdges_Validating);
@@ -243,7 +249,7 @@
             // lblNGonSkip
             // 
             this.lblNGonSkip.AutoSize = true;
-            this.lblNGonSkip.Location = new System.Drawing.Point(13, 59);
+            this.lblNGonSkip.Location = new System.Drawing.Point(131, 31);
             this.lblNGonSkip.Name = "lblNGonSkip";
             this.lblNGonSkip.Size = new System.Drawing.Size(39, 17);
             this.lblNGonSkip.TabIndex = 1;
@@ -267,7 +273,7 @@
             this.pbxCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCanvas.Location = new System.Drawing.Point(12, 12);
             this.pbxCanvas.Name = "pbxCanvas";
-            this.pbxCanvas.Size = new System.Drawing.Size(568, 476);
+            this.pbxCanvas.Size = new System.Drawing.Size(706, 476);
             this.pbxCanvas.TabIndex = 9;
             this.pbxCanvas.TabStop = false;
             this.pbxCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
@@ -276,11 +282,57 @@
             this.pbxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
             this.pbxCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
             // 
+            // rdoToolboxPolynomialFunction
+            // 
+            this.rdoToolboxPolynomialFunction.AutoSize = true;
+            this.rdoToolboxPolynomialFunction.Location = new System.Drawing.Point(13, 109);
+            this.rdoToolboxPolynomialFunction.Name = "rdoToolboxPolynomialFunction";
+            this.rdoToolboxPolynomialFunction.Size = new System.Drawing.Size(151, 21);
+            this.rdoToolboxPolynomialFunction.TabIndex = 5;
+            this.rdoToolboxPolynomialFunction.TabStop = true;
+            this.rdoToolboxPolynomialFunction.Text = "Polynomial function";
+            this.rdoToolboxPolynomialFunction.UseVisualStyleBackColor = true;
+            this.rdoToolboxPolynomialFunction.CheckedChanged += new System.EventHandler(this.rdoToolboxPolynomialFunction_CheckedChanged);
+            // 
+            // grpPolynomialFunction
+            // 
+            this.grpPolynomialFunction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPolynomialFunction.Controls.Add(this.btnZoomOut);
+            this.grpPolynomialFunction.Controls.Add(this.btnZoomIn);
+            this.grpPolynomialFunction.Location = new System.Drawing.Point(724, 352);
+            this.grpPolynomialFunction.Name = "grpPolynomialFunction";
+            this.grpPolynomialFunction.Padding = new System.Windows.Forms.Padding(10);
+            this.grpPolynomialFunction.Size = new System.Drawing.Size(239, 64);
+            this.grpPolynomialFunction.TabIndex = 10;
+            this.grpPolynomialFunction.TabStop = false;
+            this.grpPolynomialFunction.Text = "Polynomial function";
+            // 
+            // btnZoomIn
+            // 
+            this.btnZoomIn.Location = new System.Drawing.Point(13, 28);
+            this.btnZoomIn.Name = "btnZoomIn";
+            this.btnZoomIn.Size = new System.Drawing.Size(100, 23);
+            this.btnZoomIn.TabIndex = 0;
+            this.btnZoomIn.Text = "Zoom In";
+            this.btnZoomIn.UseVisualStyleBackColor = true;
+            this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
+            // 
+            // btnZoomOut
+            // 
+            this.btnZoomOut.Location = new System.Drawing.Point(126, 28);
+            this.btnZoomOut.Name = "btnZoomOut";
+            this.btnZoomOut.Size = new System.Drawing.Size(100, 23);
+            this.btnZoomOut.TabIndex = 1;
+            this.btnZoomOut.Text = "Zoom Out";
+            this.btnZoomOut.UseVisualStyleBackColor = true;
+            this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 500);
+            this.ClientSize = new System.Drawing.Size(975, 500);
+            this.Controls.Add(this.grpPolynomialFunction);
             this.Controls.Add(this.pbxCanvas);
             this.Controls.Add(this.grpNGonOptions);
             this.Controls.Add(this.btnUndo);
@@ -297,6 +349,7 @@
             this.grpNGonOptions.ResumeLayout(false);
             this.grpNGonOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).EndInit();
+            this.grpPolynomialFunction.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -321,6 +374,10 @@
         private System.Windows.Forms.Label lblNGonSkip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbxCanvas;
+        private System.Windows.Forms.RadioButton rdoToolboxPolynomialFunction;
+        private System.Windows.Forms.GroupBox grpPolynomialFunction;
+        private System.Windows.Forms.Button btnZoomOut;
+        private System.Windows.Forms.Button btnZoomIn;
     }
 }
 
