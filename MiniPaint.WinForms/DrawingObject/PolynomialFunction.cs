@@ -9,13 +9,13 @@ namespace MiniPaint.WinForms.DrawingObject
 {
     class PolynomialFunction : IDrawable
     {
-        private double[] constants;
+        public double[] Constants;
         public int Height, Width;
         public int Scale;
 
         public PolynomialFunction(double[] constants, int height, int width, int scale)
         {
-            this.constants = constants;
+            Constants = constants;
             Height = height;
             Width = width;
             Scale = scale;
@@ -30,14 +30,14 @@ namespace MiniPaint.WinForms.DrawingObject
         private double yResult(double x)
         {
             double result = 0;
-            for (int i = 0; i < constants.Length; i++)
+            for (int i = 0; i < Constants.Length; i++)
             {
                 double xPower = 1;
                 for (int j = 1; j <= i; j++)
                 {
                     xPower = xPower * x;
                 }
-                result += constants[i] * xPower;
+                result += Constants[i] * xPower;
             }
             return result;
         }

@@ -17,18 +17,22 @@ namespace MiniPaint.WinForms
             InitializeComponent();
         }
 
+        public frmEditPolyFunc(double[] consts) : this()
+        {
+            TextBox[] txt = new TextBox[] { txtX0, txtX1, txtX2, txtX3, txtX4, txtX5, txtX6 };
+
+            for (int i = 0; i < consts.Length && i < txt.Length; i++)
+            {
+                txt[i].Text = consts[i].ToString();
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            double[] consts = new double[]
-            {
-                double.Parse(txtX0.Text),
-                double.Parse(txtX1.Text),
-                double.Parse(txtX2.Text),
-                double.Parse(txtX3.Text),
-                double.Parse(txtX4.Text),
-                double.Parse(txtX5.Text),
-                double.Parse(txtX6.Text),
-            };
+            TextBox[] txt = new TextBox[] { txtX0, txtX1, txtX2, txtX3, txtX4, txtX5, txtX6 };
+            double[] consts = new double[7];
+            for (int i = 0; i < txt.Length; i++)
+                consts[i] = double.Parse(txt[i].Text);
 
             ((frmMain)Owner).ChangePolynomialFunction(consts);
             Close();

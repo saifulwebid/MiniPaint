@@ -261,8 +261,17 @@ namespace MiniPaint.WinForms
 
         private void btnEditFunction_Click(object sender, EventArgs e)
         {
-            Form frm = new frmEditPolyFunc();
+            Form frm;
+            if (mathObjects.Count > 0)
+            {
+                frm = new frmEditPolyFunc(((DrawingObject.PolynomialFunction)(mathObjects.Peek())).Constants);
+            }
+            else
+            {
+                frm = new frmEditPolyFunc();
+            }
             frm.ShowDialog(this);
+            frm.Dispose();
         }
 
         public void ChangePolynomialFunction(double[] constants)
