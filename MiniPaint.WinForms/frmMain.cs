@@ -244,7 +244,12 @@ namespace MiniPaint.WinForms
             if (rdoToolboxPolynomialFunction.Checked)
             {
                 objects = mathObjects;
-            } else
+                if (mathObjects.Count == 0)
+                {
+                    btnEditFunction_Click(sender, e);
+                }
+            }
+            else
             {
                 objects = geoObjects;
             }
