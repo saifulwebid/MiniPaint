@@ -73,7 +73,7 @@ namespace MiniPaint.WinForms
         private void btnRedraw_Click(object sender, EventArgs e)
         {
             drawingBitmap.Dispose();
-            drawingBitmap = new Bitmap(((Control)sender).Width, ((Control)sender).Height);
+            drawingBitmap = new Bitmap(pbxCanvas.Width, pbxCanvas.Height);
 
             using (Graphics g = Graphics.FromImage(drawingBitmap))
             {
@@ -83,7 +83,7 @@ namespace MiniPaint.WinForms
                 }
             }
 
-            ((Control)sender).Invalidate();
+            pbxCanvas.Invalidate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
