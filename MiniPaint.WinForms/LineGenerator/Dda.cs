@@ -27,7 +27,7 @@ namespace MiniPaint.WinForms.LineGenerator
 
             double x = line.start.X;
             double y = line.start.Y;
-            while (step > 0)
+            while (step >= 0)
             {
                 g.FillRectangle(Brushes.Blue, new Rectangle(new Point((int)x, (int)y), new Size(1, 1)));
                 x += x_tambah;
