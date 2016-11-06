@@ -153,8 +153,11 @@ namespace MiniPaint.WinForms
 
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            objects.Pop();
-            btnRedraw_Click(sender, e);
+            if (objects.Count > 0)
+            {
+                objects.Pop();
+                btnRedraw_Click(sender, e);
+            }
         }
 
         private void toolboxNGon_CheckedChanged(object sender, EventArgs e)
