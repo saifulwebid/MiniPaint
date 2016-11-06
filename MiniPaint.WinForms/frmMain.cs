@@ -120,13 +120,13 @@ namespace MiniPaint.WinForms
             }
             drawingBitmap = newBitmap;
 
+            axis.ResetAxisSize(o.Height, o.Width);
+            foreach (DrawingObject.PolynomialFunction obj in mathObjects)
+            {
+                obj.ResetAxisSize(o.Height, o.Width);
+            }
             if (rdoToolboxPolynomialFunction.Checked)
             {
-                axis.ResetAxisSize(o.Height, o.Width);
-                foreach (DrawingObject.PolynomialFunction obj in mathObjects)
-                {
-                    obj.ResetAxisSize(o.Height, o.Width);
-                }
                 btnRedraw_Click(sender, e);
             }
         }
