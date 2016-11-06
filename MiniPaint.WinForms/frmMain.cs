@@ -22,8 +22,6 @@ namespace MiniPaint.WinForms
 
         public frmMain()
         {
-            drawingBitmap = new Bitmap(1, 1);
-
             InitializeComponent();
 
             geoObjects = new Stack<IDrawable>();
@@ -110,12 +108,14 @@ namespace MiniPaint.WinForms
             Control o = (Control)sender;
             Bitmap newBitmap = new Bitmap(o.Width, o.Height);
 
-            using (Graphics g = Graphics.FromImage(newBitmap))
+            if (drawingBitmap != null)
             {
-                g.DrawImage(drawingBitmap, 0, 0);
+                using (Graphics g = Graphics.FromImage(newBitmap))
+                {
+                    g.DrawImage(drawingBitmap, 0, 0);
+                }
+                drawingBitmap.Dispose();
             }
-
-            drawingBitmap.Dispose();
             drawingBitmap = newBitmap;
 
             if (rdoToolboxPolynomialFunction.Checked)
