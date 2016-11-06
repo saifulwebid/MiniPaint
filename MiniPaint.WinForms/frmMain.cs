@@ -256,6 +256,11 @@ namespace MiniPaint.WinForms
             btnRedraw_Click(sender, e);
         }
 
+        private void btnEditFunction_Click(object sender, EventArgs e)
+        {
+            
+        }
+
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
             scale = (scale >> 1);

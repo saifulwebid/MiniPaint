@@ -51,6 +51,7 @@
             this.grpPolynomialFunction = new System.Windows.Forms.GroupBox();
             this.btnZoomIn = new System.Windows.Forms.Button();
             this.btnZoomOut = new System.Windows.Forms.Button();
+            this.btnEditFunction = new System.Windows.Forms.Button();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.grpNGonOptions.SuspendLayout();
@@ -297,6 +298,7 @@
             // grpPolynomialFunction
             // 
             this.grpPolynomialFunction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPolynomialFunction.Controls.Add(this.btnEditFunction);
             this.grpPolynomialFunction.Controls.Add(this.btnZoomOut);
             this.grpPolynomialFunction.Controls.Add(this.btnZoomIn);
             this.grpPolynomialFunction.Location = new System.Drawing.Point(724, 352);
@@ -309,23 +311,33 @@
             // 
             // btnZoomIn
             // 
-            this.btnZoomIn.Location = new System.Drawing.Point(13, 28);
+            this.btnZoomIn.Location = new System.Drawing.Point(80, 28);
             this.btnZoomIn.Name = "btnZoomIn";
-            this.btnZoomIn.Size = new System.Drawing.Size(100, 23);
+            this.btnZoomIn.Size = new System.Drawing.Size(70, 23);
             this.btnZoomIn.TabIndex = 0;
-            this.btnZoomIn.Text = "Zoom In";
+            this.btnZoomIn.Text = "Zoom +";
             this.btnZoomIn.UseVisualStyleBackColor = true;
             this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             // 
             // btnZoomOut
             // 
-            this.btnZoomOut.Location = new System.Drawing.Point(126, 28);
+            this.btnZoomOut.Location = new System.Drawing.Point(156, 28);
             this.btnZoomOut.Name = "btnZoomOut";
-            this.btnZoomOut.Size = new System.Drawing.Size(100, 23);
+            this.btnZoomOut.Size = new System.Drawing.Size(70, 23);
             this.btnZoomOut.TabIndex = 1;
-            this.btnZoomOut.Text = "Zoom Out";
+            this.btnZoomOut.Text = "Zoom -";
             this.btnZoomOut.UseVisualStyleBackColor = true;
             this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
+            // 
+            // btnEditFunction
+            // 
+            this.btnEditFunction.Location = new System.Drawing.Point(13, 28);
+            this.btnEditFunction.Name = "btnEditFunction";
+            this.btnEditFunction.Size = new System.Drawing.Size(61, 23);
+            this.btnEditFunction.TabIndex = 2;
+            this.btnEditFunction.Text = "Edit";
+            this.btnEditFunction.UseVisualStyleBackColor = true;
+            this.btnEditFunction.Click += new System.EventHandler(this.btnEditFunction_Click);
             // 
             // frmMain
             // 
@@ -378,6 +390,7 @@
         private System.Windows.Forms.GroupBox grpPolynomialFunction;
         private System.Windows.Forms.Button btnZoomOut;
         private System.Windows.Forms.Button btnZoomIn;
+        private System.Windows.Forms.Button btnEditFunction;
     }
 }
 
