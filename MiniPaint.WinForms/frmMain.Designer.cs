@@ -33,6 +33,7 @@
             this.rdoLineDda = new System.Windows.Forms.RadioButton();
             this.rdoLineNaive = new System.Windows.Forms.RadioButton();
             this.grpToolbox = new System.Windows.Forms.GroupBox();
+            this.rdoToolboxPolynomialFunction = new System.Windows.Forms.RadioButton();
             this.rdoToolboxStar = new System.Windows.Forms.RadioButton();
             this.rdoToolboxRegularPolygon = new System.Windows.Forms.RadioButton();
             this.rdoToolboxEllipse = new System.Windows.Forms.RadioButton();
@@ -47,11 +48,10 @@
             this.lblNGonSkip = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pbxCanvas = new System.Windows.Forms.PictureBox();
-            this.rdoToolboxPolynomialFunction = new System.Windows.Forms.RadioButton();
             this.grpPolynomialFunction = new System.Windows.Forms.GroupBox();
-            this.btnZoomIn = new System.Windows.Forms.Button();
-            this.btnZoomOut = new System.Windows.Forms.Button();
             this.btnEditFunction = new System.Windows.Forms.Button();
+            this.btnZoomOut = new System.Windows.Forms.Button();
+            this.btnZoomIn = new System.Windows.Forms.Button();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.grpNGonOptions.SuspendLayout();
@@ -121,6 +121,18 @@
             this.grpToolbox.TabIndex = 5;
             this.grpToolbox.TabStop = false;
             this.grpToolbox.Text = "Toolbox";
+            // 
+            // rdoToolboxPolynomialFunction
+            // 
+            this.rdoToolboxPolynomialFunction.AutoSize = true;
+            this.rdoToolboxPolynomialFunction.Location = new System.Drawing.Point(13, 109);
+            this.rdoToolboxPolynomialFunction.Name = "rdoToolboxPolynomialFunction";
+            this.rdoToolboxPolynomialFunction.Size = new System.Drawing.Size(151, 21);
+            this.rdoToolboxPolynomialFunction.TabIndex = 5;
+            this.rdoToolboxPolynomialFunction.TabStop = true;
+            this.rdoToolboxPolynomialFunction.Text = "Polynomial function";
+            this.rdoToolboxPolynomialFunction.UseVisualStyleBackColor = true;
+            this.rdoToolboxPolynomialFunction.CheckedChanged += new System.EventHandler(this.rdoToolboxPolynomialFunction_CheckedChanged);
             // 
             // rdoToolboxStar
             // 
@@ -283,18 +295,6 @@
             this.pbxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
             this.pbxCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
             // 
-            // rdoToolboxPolynomialFunction
-            // 
-            this.rdoToolboxPolynomialFunction.AutoSize = true;
-            this.rdoToolboxPolynomialFunction.Location = new System.Drawing.Point(13, 109);
-            this.rdoToolboxPolynomialFunction.Name = "rdoToolboxPolynomialFunction";
-            this.rdoToolboxPolynomialFunction.Size = new System.Drawing.Size(151, 21);
-            this.rdoToolboxPolynomialFunction.TabIndex = 5;
-            this.rdoToolboxPolynomialFunction.TabStop = true;
-            this.rdoToolboxPolynomialFunction.Text = "Polynomial function";
-            this.rdoToolboxPolynomialFunction.UseVisualStyleBackColor = true;
-            this.rdoToolboxPolynomialFunction.CheckedChanged += new System.EventHandler(this.rdoToolboxPolynomialFunction_CheckedChanged);
-            // 
             // grpPolynomialFunction
             // 
             this.grpPolynomialFunction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -309,15 +309,15 @@
             this.grpPolynomialFunction.TabStop = false;
             this.grpPolynomialFunction.Text = "Polynomial function";
             // 
-            // btnZoomIn
+            // btnEditFunction
             // 
-            this.btnZoomIn.Location = new System.Drawing.Point(80, 28);
-            this.btnZoomIn.Name = "btnZoomIn";
-            this.btnZoomIn.Size = new System.Drawing.Size(70, 23);
-            this.btnZoomIn.TabIndex = 0;
-            this.btnZoomIn.Text = "Zoom +";
-            this.btnZoomIn.UseVisualStyleBackColor = true;
-            this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
+            this.btnEditFunction.Location = new System.Drawing.Point(13, 28);
+            this.btnEditFunction.Name = "btnEditFunction";
+            this.btnEditFunction.Size = new System.Drawing.Size(61, 23);
+            this.btnEditFunction.TabIndex = 2;
+            this.btnEditFunction.Text = "Edit";
+            this.btnEditFunction.UseVisualStyleBackColor = true;
+            this.btnEditFunction.Click += new System.EventHandler(this.btnEditFunction_Click);
             // 
             // btnZoomOut
             // 
@@ -329,20 +329,20 @@
             this.btnZoomOut.UseVisualStyleBackColor = true;
             this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
             // 
-            // btnEditFunction
+            // btnZoomIn
             // 
-            this.btnEditFunction.Location = new System.Drawing.Point(13, 28);
-            this.btnEditFunction.Name = "btnEditFunction";
-            this.btnEditFunction.Size = new System.Drawing.Size(61, 23);
-            this.btnEditFunction.TabIndex = 2;
-            this.btnEditFunction.Text = "Edit";
-            this.btnEditFunction.UseVisualStyleBackColor = true;
-            this.btnEditFunction.Click += new System.EventHandler(this.btnEditFunction_Click);
+            this.btnZoomIn.Location = new System.Drawing.Point(80, 28);
+            this.btnZoomIn.Name = "btnZoomIn";
+            this.btnZoomIn.Size = new System.Drawing.Size(70, 23);
+            this.btnZoomIn.TabIndex = 0;
+            this.btnZoomIn.Text = "Zoom +";
+            this.btnZoomIn.UseVisualStyleBackColor = true;
+            this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(975, 500);
             this.Controls.Add(this.grpPolynomialFunction);
             this.Controls.Add(this.pbxCanvas);

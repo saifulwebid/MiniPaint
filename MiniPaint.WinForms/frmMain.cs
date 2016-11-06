@@ -78,7 +78,9 @@ namespace MiniPaint.WinForms
 
         private void btnRedraw_Click(object sender, EventArgs e)
         {
-            drawingBitmap.Dispose();
+            if (drawingBitmap != null)
+                drawingBitmap.Dispose();
+
             drawingBitmap = new Bitmap(pbxCanvas.Width, pbxCanvas.Height);
 
             using (Graphics g = Graphics.FromImage(drawingBitmap))
