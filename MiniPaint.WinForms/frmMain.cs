@@ -250,13 +250,21 @@ namespace MiniPaint.WinForms
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
             scale = (scale << 1);
+            axis.Scale = scale;
+            foreach (DrawingObject.PolynomialFunction o in mathObjects)
+                o.Scale = scale;
             btnZoomOut.Enabled = (scale > 1);
+            btnRedraw_Click(sender, e);
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
             scale = (scale >> 1);
+            axis.Scale = scale;
+            foreach (DrawingObject.PolynomialFunction o in mathObjects)
+                o.Scale = scale;
             btnZoomOut.Enabled = (scale > 1);
+            btnRedraw_Click(sender, e);
         }
 
         private IDrawable getDrawnObject(Point start, Point end)
