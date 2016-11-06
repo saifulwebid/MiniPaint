@@ -53,6 +53,12 @@
     <Compile Include="DrawingObject\Line.cs" />
     <Compile Include="DrawingObject\RegularPolygon.cs" />
     <Compile Include="DrawingObject\Star.cs" />
+    <Compile Include="frmEditPolyFunc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditPolyFunc.Designer.cs">
+      <DependentUpon>frmEditPolyFunc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="LineGenerator\Naive.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmEditPolyFunc.resx">
+      <DependentUpon>frmEditPolyFunc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

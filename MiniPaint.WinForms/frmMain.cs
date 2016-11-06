@@ -258,7 +258,15 @@ namespace MiniPaint.WinForms
 
         private void btnEditFunction_Click(object sender, EventArgs e)
         {
-            
+            Form frm = new frmEditPolyFunc();
+            frm.ShowDialog(this);
+        }
+
+        public void ChangePolynomialFunction(double[] constants)
+        {
+            mathObjects.Clear();
+            mathObjects.Push(new DrawingObject.PolynomialFunction(constants, pbxCanvas.Height, pbxCanvas.Width, scale));
+            btnRedraw_Click(null, null);
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)
