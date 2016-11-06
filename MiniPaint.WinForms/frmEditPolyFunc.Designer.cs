@@ -225,6 +225,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmEditPolyFunc";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Polynomial function editor";
             this.ResumeLayout(false);
             this.PerformLayout();

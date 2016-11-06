@@ -353,6 +353,7 @@
             this.Controls.Add(this.grpToolbox);
             this.Controls.Add(this.grpLineGeneratorAlgorithm);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MiniPaint";
             this.grpLineGeneratorAlgorithm.ResumeLayout(false);
             this.grpLineGeneratorAlgorithm.PerformLayout();
