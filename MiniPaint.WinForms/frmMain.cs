@@ -28,7 +28,6 @@ namespace MiniPaint.WinForms
 
             geoObjects = new Stack<IDrawable>();
             mathObjects = new Stack<IDrawable>();
-            mathObjects.Push(new DrawingObject.PolynomialFunction(new double[] { -1, 0, 1 }, pbxCanvas.Height, pbxCanvas.Width, scale));
             axis = new DrawingObject.Axis(pbxCanvas.Height, pbxCanvas.Width, scale);
             dragging = false;
 

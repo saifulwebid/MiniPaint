@@ -46,7 +46,7 @@ namespace MiniPaint.WinForms.DrawingObject
         {
             int center = Height / 2;
 
-            return center - (int)(yResult(x) * Scale);
+            return center - (int)(yResult(x / Scale) * Scale);
         }
 
         public void Draw(Graphics g)
