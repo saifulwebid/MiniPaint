@@ -22,10 +22,13 @@ namespace MiniPaint.WinForms.DrawingObject
         public void Draw(Graphics g)
         {
             int x = 0;
-            int y = ry;
+            int y = this.ry;
             drawPoints(x, y, g);
 
-            int p = ry * ry - rx * rx * ry + (rx * rx) / 4;
+            long rx = this.rx;
+            long ry = this.ry;
+
+            long p = ry * ry - rx * rx * ry + (rx * rx) / 4;
             while (2 * ry * ry * x < 2 * rx * rx * y)
             {
                 x++;
@@ -40,7 +43,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 drawPoints(x, y, g);
             }
 
-            p = (int)(ry * ry * (x + 0.5) * (x + 0.5) + rx * rx * (y - 1) * (y - 1) - rx * rx * ry * ry);
+            p = (long)(ry * ry * (x + 0.5) * (x + 0.5) + rx * rx * (y - 1) * (y - 1) - rx * rx * ry * ry);
             while (y > 0)
             {
                 y--;
