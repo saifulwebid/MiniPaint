@@ -30,14 +30,11 @@ namespace MiniPaint.WinForms.DrawingObject
         private double yResult(double x)
         {
             double result = 0;
+            double xPower = 1;
             for (int i = 0; i < Constants.Length; i++)
             {
-                double xPower = 1;
-                for (int j = 1; j <= i; j++)
-                {
-                    xPower = xPower * x;
-                }
                 result += Constants[i] * xPower;
+                xPower *= x;
             }
             return result;
         }
