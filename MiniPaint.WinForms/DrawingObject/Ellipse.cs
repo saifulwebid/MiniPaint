@@ -19,11 +19,11 @@ namespace MiniPaint.WinForms.DrawingObject
             this.ry = ry;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
             int x = 0;
             int y = this.ry;
-            drawPoints(x, y, g);
+            drawPoints(x, y, g, c);
 
             long rx = this.rx;
             long ry = this.ry;
@@ -40,7 +40,7 @@ namespace MiniPaint.WinForms.DrawingObject
                     p -= 2 * rx * rx * y;
                 }
 
-                drawPoints(x, y, g);
+                drawPoints(x, y, g, c);
             }
 
             p = (long)(ry * ry * (x + 0.5) * (x + 0.5) + rx * rx * (y - 1) * (y - 1) - rx * rx * ry * ry);
@@ -55,13 +55,13 @@ namespace MiniPaint.WinForms.DrawingObject
                     p += 2 * ry * ry * x;
                 }
 
-                drawPoints(x, y, g);
+                drawPoints(x, y, g, c);
             }
         }
 
-        private void drawPoints(int x, int y, Graphics g)
+        private void drawPoints(int x, int y, Graphics g, Color c)
         {
-            Brush br = new SolidBrush(Color.RoyalBlue);
+            Brush br = new SolidBrush(c);
             Size sz = new Size(1, 1);
 
             g.FillRectangle(br, new Rectangle(new Point(x + this.center.X, y + this.center.Y), sz));

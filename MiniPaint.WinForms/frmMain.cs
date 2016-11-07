@@ -19,6 +19,8 @@ namespace MiniPaint.WinForms
         private bool dragging;
         private Bitmap drawingBitmap, preClickBitmap;
         private int scale = (1 << 6);
+        private Color objectColor = Color.Black;
+        private Color axisColor = Color.Gray;
 
         public frmMain()
         {
@@ -28,6 +30,9 @@ namespace MiniPaint.WinForms
             mathObjects = new Stack<IDrawable>();
             axis = new DrawingObject.Axis(pbxCanvas.Height, pbxCanvas.Width, scale);
             dragging = false;
+
+            pbxObjectColor.BackColor = objectColor;
+            pbxAxisColor.BackColor = axisColor;
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
@@ -67,7 +72,7 @@ namespace MiniPaint.WinForms
                 drawingBitmap = (Bitmap)preClickBitmap.Clone();
                 using (Graphics g = Graphics.FromImage(drawingBitmap))
                 {
-                    objectToDraw.Draw(g);
+                    objectToDraw.Draw(g, objectColor);
                 }
 
                 dragging = false;
@@ -87,12 +92,12 @@ namespace MiniPaint.WinForms
             {
                 if (rdoToolboxPolynomialFunction.Checked)
                 {
-                    axis.Draw(g);
+                    axis.Draw(g, axisColor);
                 }
 
                 foreach (IDrawable o in objects)
                 {
-                    o.Draw(g);
+                    o.Draw(g, objectColor);
                 }
             }
 
@@ -141,7 +146,7 @@ namespace MiniPaint.WinForms
                 drawingBitmap = (Bitmap)preClickBitmap.Clone();
                 using (Graphics g = Graphics.FromImage(drawingBitmap))
                 {
-                    objectToDraw.Draw(g);
+                    objectToDraw.Draw(g, objectColor);
                 }
 
                 ((Control)sender).Invalidate();
@@ -286,6 +291,28 @@ namespace MiniPaint.WinForms
             mathObjects.Clear();
             mathObjects.Push(new DrawingObject.PolynomialFunction(constants, pbxCanvas.Height, pbxCanvas.Width, scale));
             btnRedraw_Click(null, null);
+        }
+
+        private void pbxObjectColor_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = dlgColor.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                objectColor = dlgColor.Color;
+                pbxObjectColor.BackColor = objectColor;
+                btnRedraw_Click(sender, e);
+            }
+        }
+
+        private void pbxAxisColor_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = dlgColor.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                axisColor = dlgColor.Color;
+                pbxAxisColor.BackColor = axisColor;
+                btnRedraw_Click(sender, e);
+            }
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace MiniPaint.WinForms.DrawingObject
             this.firstVertexAngle = firstVertexAngle;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
             int sx, sy, ex, ey;
             double r = Math.Cos(skip * Math.PI / n) / Math.Cos((skip - 1) * Math.PI / n);
@@ -36,7 +36,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 ex = center.X + (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Cos(firstVertexAngle + Math.PI * (i + 1) / n));
                 ey = center.Y - (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Sin(firstVertexAngle + Math.PI * (i + 1) / n));
 
-                new LineGenerator.Bresenham(new Line(new Point(sx, sy), new Point(ex, ey))).Draw(g);
+                new LineGenerator.Bresenham(new Line(new Point(sx, sy), new Point(ex, ey))).Draw(g, c);
             }
         }
     }

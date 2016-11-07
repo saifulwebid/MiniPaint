@@ -19,9 +19,9 @@ namespace MiniPaint.WinForms.LineGenerator
         /// <summary>
         /// https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
         /// </summary>
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
-            Brush br = new SolidBrush(Color.Red);
+            Brush br = new SolidBrush(c);
             Size sz = new Size(1, 1);
 
             int dx = Math.Abs(line.end.X - line.start.X);

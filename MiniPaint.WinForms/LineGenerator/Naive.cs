@@ -16,9 +16,9 @@ namespace MiniPaint.WinForms.LineGenerator
             this.line = line;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color cr)
         {
-            Brush br = new SolidBrush(Color.Black);
+            Brush br = new SolidBrush(cr);
             Size sz = new Size(1, 1);
 
             int dx = line.end.X - line.start.X;

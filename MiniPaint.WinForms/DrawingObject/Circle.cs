@@ -18,7 +18,7 @@ namespace MiniPaint.WinForms.DrawingObject
             this.radius = radius;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
             int x = 0;
             int y = this.radius;
@@ -26,7 +26,7 @@ namespace MiniPaint.WinForms.DrawingObject
 
             while (x < y)
             {
-                drawCirclePoints(x, y, g);
+                drawCirclePoints(x, y, g, c);
 
                 x++;
                 if (p < 0)
@@ -40,12 +40,12 @@ namespace MiniPaint.WinForms.DrawingObject
                 }
             }
 
-            drawCirclePoints(x, y, g);
+            drawCirclePoints(x, y, g, c);
         }
 
-        private void drawCirclePoints(int x, int y, Graphics g)
+        private void drawCirclePoints(int x, int y, Graphics g, Color c)
         {
-            Brush br = new SolidBrush(Color.Purple);
+            Brush br = new SolidBrush(c);
             Size sz = new Size(1, 1);
 
             g.FillRectangle(br, new Rectangle(new Point(x + this.center.X, y + this.center.Y), sz));

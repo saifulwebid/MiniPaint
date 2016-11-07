@@ -25,29 +25,29 @@ namespace MiniPaint.WinForms.DrawingObject
             Width = width;
         }
         
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
             Point center = new Point(Width / 2, Height / 2);
 
-            new LineGenerator.Bresenham(new Line(new Point(0, center.Y), new Point(Width, center.Y))).Draw(g);
-            new LineGenerator.Bresenham(new Line(new Point(center.X, 0), new Point(center.X, Height))).Draw(g);
+            new LineGenerator.Bresenham(new Line(new Point(0, center.Y), new Point(Width, center.Y))).Draw(g, c);
+            new LineGenerator.Bresenham(new Line(new Point(center.X, 0), new Point(center.X, Height))).Draw(g, c);
 
             int x, y;
             for (x = center.X + Scale; x <= Width; x += Scale)
             {
-                new LineGenerator.Bresenham(new Line(new Point(x, center.Y - 5), new Point(x, center.Y + 5))).Draw(g);
+                new LineGenerator.Bresenham(new Line(new Point(x, center.Y - 5), new Point(x, center.Y + 5))).Draw(g, c);
             }
             for (x = center.X - Scale; x >= 0; x -= Scale)
             {
-                new LineGenerator.Bresenham(new Line(new Point(x, center.Y - 5), new Point(x, center.Y + 5))).Draw(g);
+                new LineGenerator.Bresenham(new Line(new Point(x, center.Y - 5), new Point(x, center.Y + 5))).Draw(g, c);
             }
             for (y = center.Y + Scale; y <= Height; y += Scale)
             {
-                new LineGenerator.Bresenham(new Line(new Point(center.X - 5, y), new Point(center.X + 5, y))).Draw(g);
+                new LineGenerator.Bresenham(new Line(new Point(center.X - 5, y), new Point(center.X + 5, y))).Draw(g, c);
             }
             for (y = center.Y - Scale; y >= 0; y -= Scale)
             {
-                new LineGenerator.Bresenham(new Line(new Point(center.X - 5, y), new Point(center.X + 5, y))).Draw(g);
+                new LineGenerator.Bresenham(new Line(new Point(center.X - 5, y), new Point(center.X + 5, y))).Draw(g, c);
             }
         }
     }

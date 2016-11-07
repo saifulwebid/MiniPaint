@@ -46,7 +46,7 @@ namespace MiniPaint.WinForms.DrawingObject
             return center - (int)(yResult(x / Scale) * Scale);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Color c)
         {
             Point center = new Point(Width / 2, Height / 2);
 
@@ -58,7 +58,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 int y = yPlotter(x);
 
                 if (y_prev >= 0 && y_prev <= Height)
-                    new LineGenerator.Dda(new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y))).Draw(g);
+                    new LineGenerator.Dda(new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y))).Draw(g, c);
 
                 x_prev = x;
                 y_prev = y;
@@ -72,7 +72,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 int y = yPlotter(x);
 
                 if (y_prev >= 0 && y_prev <= Height)
-                    new LineGenerator.Dda(new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y))).Draw(g);
+                    new LineGenerator.Dda(new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y))).Draw(g, c);
 
                 x_prev = x;
                 y_prev = y;
