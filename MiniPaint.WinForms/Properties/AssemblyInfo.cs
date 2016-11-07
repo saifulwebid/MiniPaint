@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MiniPaint")]
-[assembly: AssemblyCopyright("Copyright © Muhammad Saiful Islam, 2016")]
+[assembly: AssemblyCopyright("© Muhammad Saiful Islam, JTK Polban, tahun 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
