@@ -21,6 +21,9 @@ namespace MiniPaint.WinForms.LineGenerator
         /// </summary>
         public void Draw(Graphics g)
         {
+            Brush br = new SolidBrush(Color.Red);
+            Size sz = new Size(1, 1);
+
             int dx = Math.Abs(line.end.X - line.start.X);
             int sx = line.start.X < line.end.X ? 1 : -1;
 
@@ -34,7 +37,7 @@ namespace MiniPaint.WinForms.LineGenerator
             int y = line.start.Y;
             while (true)
             {
-                g.FillRectangle(Brushes.Red, new Rectangle(new Point(x, y), new Size(1, 1)));
+                g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
 
                 if (x == line.end.X && y == line.end.Y)
                     break;

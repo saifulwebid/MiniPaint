@@ -61,10 +61,13 @@ namespace MiniPaint.WinForms.DrawingObject
 
         private void drawPoints(int x, int y, Graphics g)
         {
-            g.FillRectangle(Brushes.RoyalBlue, new Rectangle(new Point(x + this.center.X, y + this.center.Y), new Size(1, 1)));
-            g.FillRectangle(Brushes.RoyalBlue, new Rectangle(new Point(-x + this.center.X, y + this.center.Y), new Size(1, 1)));
-            g.FillRectangle(Brushes.RoyalBlue, new Rectangle(new Point(x + this.center.X, -y + this.center.Y), new Size(1, 1)));
-            g.FillRectangle(Brushes.RoyalBlue, new Rectangle(new Point(-x + this.center.X, -y + this.center.Y), new Size(1, 1)));
+            Brush br = new SolidBrush(Color.RoyalBlue);
+            Size sz = new Size(1, 1);
+
+            g.FillRectangle(br, new Rectangle(new Point(x + this.center.X, y + this.center.Y), sz));
+            g.FillRectangle(br, new Rectangle(new Point(-x + this.center.X, y + this.center.Y), sz));
+            g.FillRectangle(br, new Rectangle(new Point(x + this.center.X, -y + this.center.Y), sz));
+            g.FillRectangle(br, new Rectangle(new Point(-x + this.center.X, -y + this.center.Y), sz));
         }
     }
 }

@@ -18,6 +18,9 @@ namespace MiniPaint.WinForms.LineGenerator
 
         public void Draw(Graphics g)
         {
+            Brush br = new SolidBrush(Color.Black);
+            Size sz = new Size(1, 1);
+
             int dx = line.end.X - line.start.X;
             int dy = line.end.Y - line.start.Y;
 
@@ -32,7 +35,7 @@ namespace MiniPaint.WinForms.LineGenerator
                 for (int x = x_start; x <= x_end; x++)
                 {
                     int y = (int)(m * x + c);
-                    g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
+                    g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
                 }
             }
             else
@@ -52,7 +55,7 @@ namespace MiniPaint.WinForms.LineGenerator
                         x = (int)((y - c) / m);
                     }
 
-                    g.FillRectangle(Brushes.Black, new Rectangle(new Point(x, y), new Size(1, 1)));
+                    g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
                 }
             }
         }
