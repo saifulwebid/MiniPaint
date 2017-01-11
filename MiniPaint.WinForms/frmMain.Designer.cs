@@ -52,7 +52,7 @@
             this.btnEditFunction = new System.Windows.Forms.Button();
             this.btnZoomOut = new System.Windows.Forms.Button();
             this.btnZoomIn = new System.Windows.Forms.Button();
-            this.pbxObjectColor = new System.Windows.Forms.PictureBox();
+            this.pbxForegroundObjectColor = new System.Windows.Forms.PictureBox();
             this.pbxAxisColor = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.grpNGonOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).BeginInit();
             this.grpPolynomialFunction.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxObjectColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxForegroundObjectColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAxisColor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -296,11 +296,11 @@
             this.pbxCanvas.Size = new System.Drawing.Size(684, 476);
             this.pbxCanvas.TabIndex = 9;
             this.pbxCanvas.TabStop = false;
-            this.pbxCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
-            this.pbxCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseDown);
-            this.pbxCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseMove);
-            this.pbxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCanvas_MouseUp);
-            this.pbxCanvas.Resize += new System.EventHandler(this.pnlCanvas_Resize);
+            this.pbxCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxCanvas_Paint);
+            this.pbxCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbxCanvas_MouseDown);
+            this.pbxCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxCanvas_MouseMove);
+            this.pbxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxCanvas_MouseUp);
+            this.pbxCanvas.Resize += new System.EventHandler(this.pbxCanvas_Resize);
             // 
             // grpPolynomialFunction
             // 
@@ -348,22 +348,22 @@
             // 
             // pbxObjectColor
             // 
-            this.pbxObjectColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbxObjectColor.BackColor = System.Drawing.Color.Transparent;
-            this.pbxObjectColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbxObjectColor.Location = new System.Drawing.Point(702, 424);
-            this.pbxObjectColor.Name = "pbxObjectColor";
-            this.pbxObjectColor.Size = new System.Drawing.Size(22, 22);
-            this.pbxObjectColor.TabIndex = 13;
-            this.pbxObjectColor.TabStop = false;
-            this.pbxObjectColor.Click += new System.EventHandler(this.pbxObjectColor_Click);
+            this.pbxForegroundObjectColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbxForegroundObjectColor.BackColor = System.Drawing.Color.Transparent;
+            this.pbxForegroundObjectColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbxForegroundObjectColor.Location = new System.Drawing.Point(702, 424);
+            this.pbxForegroundObjectColor.Name = "pbxObjectColor";
+            this.pbxForegroundObjectColor.Size = new System.Drawing.Size(22, 22);
+            this.pbxForegroundObjectColor.TabIndex = 13;
+            this.pbxForegroundObjectColor.TabStop = false;
+            this.pbxForegroundObjectColor.Click += new System.EventHandler(this.pbxObjectColor_Click);
             // 
             // pbxAxisColor
             // 
             this.pbxAxisColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbxAxisColor.BackColor = System.Drawing.Color.Transparent;
             this.pbxAxisColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbxAxisColor.Location = new System.Drawing.Point(832, 424);
+            this.pbxAxisColor.Location = new System.Drawing.Point(702, 452);
             this.pbxAxisColor.Name = "pbxAxisColor";
             this.pbxAxisColor.Size = new System.Drawing.Size(22, 22);
             this.pbxAxisColor.TabIndex = 14;
@@ -376,15 +376,15 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(730, 427);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 17);
+            this.label2.Size = new System.Drawing.Size(159, 17);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Object color";
+            this.label2.Text = "Foreground object color";
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(860, 427);
+            this.label3.Location = new System.Drawing.Point(730, 455);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 17);
             this.label3.TabIndex = 16;
@@ -398,7 +398,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbxAxisColor);
-            this.Controls.Add(this.pbxObjectColor);
+            this.Controls.Add(this.pbxForegroundObjectColor);
             this.Controls.Add(this.grpPolynomialFunction);
             this.Controls.Add(this.pbxCanvas);
             this.Controls.Add(this.grpNGonOptions);
@@ -418,7 +418,7 @@
             this.grpNGonOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCanvas)).EndInit();
             this.grpPolynomialFunction.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxObjectColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxForegroundObjectColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAxisColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -450,7 +450,7 @@
         private System.Windows.Forms.Button btnZoomOut;
         private System.Windows.Forms.Button btnZoomIn;
         private System.Windows.Forms.Button btnEditFunction;
-        private System.Windows.Forms.PictureBox pbxObjectColor;
+        private System.Windows.Forms.PictureBox pbxForegroundObjectColor;
         private System.Windows.Forms.PictureBox pbxAxisColor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

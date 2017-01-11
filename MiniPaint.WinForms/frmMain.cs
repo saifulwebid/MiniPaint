@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MiniPaint.WinForms.DrawingObject;
+using MiniPaint.WinForms.LineGenerator;
 
 namespace MiniPaint.WinForms
 {
@@ -14,13 +16,41 @@ namespace MiniPaint.WinForms
     {
         private Stack<IDrawable> objects;
         private Stack<IDrawable> geoObjects, mathObjects;
-        private DrawingObject.Axis axis;
+        private Axis axis;
         private Point startPoint;
         private bool dragging;
         private Bitmap drawingBitmap, preClickBitmap;
         private int scale = (1 << 6);
-        private Color objectColor = Color.Black;
-        private Color axisColor = Color.Gray;
+        private Color objectColor;
+        private Color axisColor;
+
+        public Color ObjectColor
+        {
+            get
+            {
+                return objectColor;
+            }
+            set
+            {
+                objectColor = value;
+                pbxForegroundObjectColor.BackColor = value;
+            }
+        }
+        public Color AxisColor
+        {
+            get
+            {
+                return axisColor;
+            }
+            set
+            {
+                axisColor = value;
+                pbxAxisColor.BackColor = value;
+
+                axis.ForegroundColor = value;
+                pbxCanvas.Invalidate();
+            }
+        }
 
         public frmMain()
         {
@@ -28,23 +58,23 @@ namespace MiniPaint.WinForms
 
             geoObjects = new Stack<IDrawable>();
             mathObjects = new Stack<IDrawable>();
-            axis = new DrawingObject.Axis(pbxCanvas.Height, pbxCanvas.Width, scale);
+            axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
             dragging = false;
 
-            pbxObjectColor.BackColor = objectColor;
-            pbxAxisColor.BackColor = axisColor;
+            ObjectColor = Color.Black;
+            AxisColor = Color.Gray;
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
             rdoToolboxPolynomialFunction_CheckedChanged(null, null);
         }
 
-        private void pnlCanvas_Paint(object sender, PaintEventArgs e)
+        private void pbxCanvas_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(drawingBitmap, 0, 0);
         }
 
-        private void pnlCanvas_MouseDown(object sender, MouseEventArgs e)
+        private void pbxCanvas_MouseDown(object sender, MouseEventArgs e)
         {
             if (!rdoToolboxPolynomialFunction.Checked)
             {
@@ -61,7 +91,7 @@ namespace MiniPaint.WinForms
             }
         }
 
-        private void pnlCanvas_MouseUp(object sender, MouseEventArgs e)
+        private void pbxCanvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (dragging)
             {
@@ -72,7 +102,7 @@ namespace MiniPaint.WinForms
                 drawingBitmap = (Bitmap)preClickBitmap.Clone();
                 using (Graphics g = Graphics.FromImage(drawingBitmap))
                 {
-                    objectToDraw.Draw(g, objectColor);
+                    objectToDraw.Draw(g);
                 }
 
                 dragging = false;
@@ -92,12 +122,12 @@ namespace MiniPaint.WinForms
             {
                 if (rdoToolboxPolynomialFunction.Checked)
                 {
-                    axis.Draw(g, axisColor);
+                    axis.Draw(g);
                 }
 
                 foreach (IDrawable o in objects)
                 {
-                    o.Draw(g, objectColor);
+                    o.Draw(g);
                 }
             }
 
@@ -110,7 +140,7 @@ namespace MiniPaint.WinForms
             btnRedraw_Click(sender, e);
         }
 
-        private void pnlCanvas_Resize(object sender, EventArgs e)
+        private void pbxCanvas_Resize(object sender, EventArgs e)
         {
             Control o = (Control)sender;
             Bitmap newBitmap = new Bitmap(o.Width, o.Height);
@@ -126,7 +156,7 @@ namespace MiniPaint.WinForms
             drawingBitmap = newBitmap;
 
             axis.ResetAxisSize(o.Height, o.Width);
-            foreach (DrawingObject.PolynomialFunction obj in mathObjects)
+            foreach (PolynomialFunction obj in mathObjects)
             {
                 obj.ResetAxisSize(o.Height, o.Width);
             }
@@ -136,7 +166,7 @@ namespace MiniPaint.WinForms
             }
         }
 
-        private void pnlCanvas_MouseMove(object sender, MouseEventArgs e)
+        private void pbxCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && dragging)
             {
@@ -146,7 +176,7 @@ namespace MiniPaint.WinForms
                 drawingBitmap = (Bitmap)preClickBitmap.Clone();
                 using (Graphics g = Graphics.FromImage(drawingBitmap))
                 {
-                    objectToDraw.Draw(g, objectColor);
+                    objectToDraw.Draw(g);
                 }
 
                 ((Control)sender).Invalidate();
@@ -265,7 +295,7 @@ namespace MiniPaint.WinForms
         {
             scale = (scale << 1);
             axis.Scale = scale;
-            foreach (DrawingObject.PolynomialFunction o in mathObjects)
+            foreach (PolynomialFunction o in mathObjects)
                 o.Scale = scale;
             btnZoomOut.Enabled = (scale > 1);
             btnRedraw_Click(sender, e);
@@ -276,7 +306,7 @@ namespace MiniPaint.WinForms
             Form frm;
             if (mathObjects.Count > 0)
             {
-                frm = new frmEditPolyFunc(((DrawingObject.PolynomialFunction)(mathObjects.Peek())).Constants);
+                frm = new frmEditPolyFunc(((PolynomialFunction)(mathObjects.Peek())).Constants);
             }
             else
             {
@@ -289,7 +319,7 @@ namespace MiniPaint.WinForms
         public void ChangePolynomialFunction(double[] constants)
         {
             mathObjects.Clear();
-            mathObjects.Push(new DrawingObject.PolynomialFunction(constants, pbxCanvas.Height, pbxCanvas.Width, scale));
+            mathObjects.Push(new PolynomialFunction(constants, pbxCanvas.Height, pbxCanvas.Width, scale, ObjectColor));
             btnRedraw_Click(null, null);
         }
 
@@ -298,8 +328,8 @@ namespace MiniPaint.WinForms
             DialogResult dr = dlgColor.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                objectColor = dlgColor.Color;
-                pbxObjectColor.BackColor = objectColor;
+                ObjectColor = dlgColor.Color;
+                pbxForegroundObjectColor.BackColor = ObjectColor;
                 btnRedraw_Click(sender, e);
             }
         }
@@ -309,8 +339,8 @@ namespace MiniPaint.WinForms
             DialogResult dr = dlgColor.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                axisColor = dlgColor.Color;
-                pbxAxisColor.BackColor = axisColor;
+                AxisColor = dlgColor.Color;
+                pbxAxisColor.BackColor = AxisColor;
                 btnRedraw_Click(sender, e);
             }
         }
@@ -319,7 +349,7 @@ namespace MiniPaint.WinForms
         {
             scale = (scale >> 1);
             axis.Scale = scale;
-            foreach (DrawingObject.PolynomialFunction o in mathObjects)
+            foreach (PolynomialFunction o in mathObjects)
                 o.Scale = scale;
             btnZoomOut.Enabled = (scale > 1);
             btnRedraw_Click(sender, e);
@@ -331,15 +361,15 @@ namespace MiniPaint.WinForms
             {
                 if (rdoLineBresenham.Checked)
                 {
-                    return new LineGenerator.Bresenham(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                    return new Line(start, new Point(end.X, end.Y), ObjectColor, new Bresenham());
                 }
                 else if (rdoLineDda.Checked)
                 {
-                    return new LineGenerator.Dda(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                    return new Line(start, new Point(end.X, end.Y), ObjectColor, new Dda());
                 }
                 else
                 {
-                    return new LineGenerator.Naive(new DrawingObject.Line(start, new Point(end.X, end.Y)));
+                    return new Line(start, new Point(end.X, end.Y), ObjectColor, new Naive());
                 }
             }
             else if (rdoToolboxCircle.Checked)
@@ -347,14 +377,14 @@ namespace MiniPaint.WinForms
                 int radius = (int)Math.Sqrt((end.X - start.X) * (end.X - start.X) +
                     (end.Y - start.Y) * (end.Y - start.Y));
 
-                return new DrawingObject.Circle(start, radius);
+                return new Circle(start, radius, ObjectColor);
             }
             else if (rdoToolboxEllipse.Checked)
             {
                 int rx = Math.Abs(end.X - start.X);
                 int ry = Math.Abs(end.Y - start.Y);
 
-                return new DrawingObject.Ellipse(start, rx, ry);
+                return new Ellipse(start, rx, ry, ObjectColor);
             }
             else if (rdoToolboxRegularPolygon.Checked)
             {
@@ -362,7 +392,7 @@ namespace MiniPaint.WinForms
                     (end.Y - start.Y) * (end.Y - start.Y));
                 double angle = Math.Atan2(start.Y - end.Y, end.X - start.X);
 
-                return new DrawingObject.RegularPolygon(start, circumradius, Convert.ToInt32(txtNGonEdges.Text), angle);
+                return new RegularPolygon(start, circumradius, Convert.ToInt32(txtNGonEdges.Text), angle, ObjectColor);
             }
             else // rdoToolboxStar.Checked
             {
@@ -370,8 +400,8 @@ namespace MiniPaint.WinForms
                     (end.Y - start.Y) * (end.Y - start.Y));
                 double angle = Math.Atan2(start.Y - end.Y, end.X - start.X);
 
-                return new DrawingObject.Star(start, circumradius, Convert.ToInt32(txtNGonEdges.Text),
-                    Convert.ToInt32(txtNGonSkip.Text), angle);
+                return new Star(start, circumradius, Convert.ToInt32(txtNGonEdges.Text),
+                    Convert.ToInt32(txtNGonSkip.Text), angle, ObjectColor);
             }
         }
     }
