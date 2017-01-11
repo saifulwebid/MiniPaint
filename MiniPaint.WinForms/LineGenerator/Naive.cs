@@ -4,33 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniPaint.WinForms.DrawingObject;
 
 namespace MiniPaint.WinForms.LineGenerator
 {
-    class Naive : IDrawable
+    class Naive : ILineGenerator
     {
-        private DrawingObject.Line line;
-
-        public Naive(DrawingObject.Line line)
+        public void Draw(Graphics g, Line l)
         {
-            this.line = line;
-        }
-
-        public void Draw(Graphics g, Color cr)
-        {
-            Brush br = new SolidBrush(cr);
+            Brush br = new SolidBrush(l.ForegroundColor);
             Size sz = new Size(1, 1);
 
-            int dx = line.End.X - line.Start.X;
-            int dy = line.End.Y - line.Start.Y;
+            int dx = l.End.X - l.Start.X;
+            int dy = l.End.Y - l.Start.Y;
 
             double m = (double)dy / dx;
-            double c = line.Start.Y - m * line.Start.X;
+            double c = l.Start.Y - m * l.Start.X;
 
             if (Math.Abs(dx) > Math.Abs(dy))
             {
-                int x_start = Math.Min(line.Start.X, line.End.X);
-                int x_end = Math.Max(line.Start.X, line.End.X);
+                int x_start = Math.Min(l.Start.X, l.End.X);
+                int x_end = Math.Max(l.Start.X, l.End.X);
 
                 for (int x = x_start; x <= x_end; x++)
                 {
@@ -40,15 +34,15 @@ namespace MiniPaint.WinForms.LineGenerator
             }
             else
             {
-                int y_start = Math.Min(line.Start.Y, line.End.Y);
-                int y_end = Math.Max(line.Start.Y, line.End.Y);
+                int y_start = Math.Min(l.Start.Y, l.End.Y);
+                int y_end = Math.Max(l.Start.Y, l.End.Y);
 
                 for (int y = y_start; y <= y_end; y++)
                 {
                     int x;
                     if (dx == 0)
                     {
-                        x = line.Start.X;
+                        x = l.Start.X;
                     }
                     else
                     {
