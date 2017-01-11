@@ -14,10 +14,11 @@ namespace MiniPaint.WinForms.DrawingObject
 
         public Color ForegroundColor { get; set; }
 
-        public Circle(Point center, int radius)
+        public Circle(Point center, int radius, Color c)
         {
             this.center = center;
             this.radius = radius;
+            ForegroundColor = c;
         }
 
         public void Draw(Graphics g)
