@@ -72,6 +72,7 @@
     <Compile Include="Transformation\Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transformation\ReflectionMatrixFactory.cs" />
     <Compile Include="Transformation\RotationMatrixFactory.cs" />
     <Compile Include="Transformation\TranslationMatrixFactory.cs" />
     <EmbeddedResource Include="frmEditPolyFunc.resx">
