@@ -69,6 +69,7 @@
     <Compile Include="LineGenerator\Bresenham.cs" />
     <Compile Include="LineGenerator\Dda.cs" />
     <Compile Include="LineGenerator\Naive.cs" />
+    <Compile Include="Transformation\Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmEditPolyFunc.resx">
