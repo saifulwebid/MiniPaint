@@ -13,7 +13,7 @@ namespace MiniPaint.WinForms.Transformation
         {
             if (double.IsInfinity(l.M))
             {
-                double dx = -l.C;
+                int dx = (int)-l.C;
                 Matrix m = TranslationMatrixFactory.CreateMatrix(-dx, 0);
                 m.Apply(new Matrix(-1, 0, 0, 1, 0, 0));
                 m.Apply(TranslationMatrixFactory.CreateMatrix(dx, 0));
