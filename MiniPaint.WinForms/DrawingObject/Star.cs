@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniPaint.WinForms.LineGenerator;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
@@ -15,16 +16,19 @@ namespace MiniPaint.WinForms.DrawingObject
         private int skip;
         private double firstVertexAngle;
 
-        public Star(Point center, double circumradius, int n, int skip, double firstVertexAngle)
+        public Color ForegroundColor { get; set; }
+
+        public Star(Point center, double circumradius, int n, int skip, double firstVertexAngle, Color c)
         {
             this.center = center;
             this.circumradius = circumradius;
             this.n = n;
             this.skip = skip;
             this.firstVertexAngle = firstVertexAngle;
+            ForegroundColor = c;
         }
 
-        public void Draw(Graphics g, Color c)
+        public void Draw(Graphics g)
         {
             int sx, sy, ex, ey;
             double r = Math.Cos(skip * Math.PI / n) / Math.Cos((skip - 1) * Math.PI / n);
@@ -36,7 +40,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 ex = center.X + (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Cos(firstVertexAngle + Math.PI * (i + 1) / n));
                 ey = center.Y - (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Sin(firstVertexAngle + Math.PI * (i + 1) / n));
 
-                new LineGenerator.Bresenham(new Line(new Point(sx, sy), new Point(ex, ey))).Draw(g, c);
+                new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham()).Draw(g);
             }
         }
     }
