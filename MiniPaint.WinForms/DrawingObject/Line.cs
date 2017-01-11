@@ -36,10 +36,11 @@ namespace MiniPaint.WinForms.DrawingObject
         public Color ForegroundColor { get; set; }
         public ILineGenerator LineGenerator { get; set; }
 
-        public Line(Point start, Point end, ILineGenerator lg)
+        public Line(Point start, Point end, Color c, ILineGenerator lg)
         {
             Start = start;
             End = end;
+            ForegroundColor = c;
             LineGenerator = lg;
         }
 
