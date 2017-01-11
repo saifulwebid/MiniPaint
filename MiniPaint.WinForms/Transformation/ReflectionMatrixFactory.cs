@@ -14,6 +14,7 @@ namespace MiniPaint.WinForms.Transformation
             if (double.IsInfinity(l.M))
             {
                 int dx = (int)-l.C;
+
                 Matrix m = TranslationMatrixFactory.CreateMatrix(-dx, 0);
                 m.Apply(new Matrix(-1, 0, 0, 1, 0, 0));
                 m.Apply(TranslationMatrixFactory.CreateMatrix(dx, 0));
@@ -22,12 +23,15 @@ namespace MiniPaint.WinForms.Transformation
             }
             else
             {
-                return new Matrix((-(l.M * l.M) + 1) / (l.M * l.M + 1),
-                    2 * l.M / (l.M * l.M + 1),
-                    2 * l.M / (l.M * l.M + 1),
-                    (l.M * l.M - 1) / (l.M * l.M + 1),
-                    2 * l.M * l.C / (l.M * l.M + 1),
-                    (-l.C * (l.M * l.M - 1)) / (l.M * l.M + 1));
+                double m = l.M;
+                double c = l.C;
+
+                return new Matrix((-(m * m) + 1) / (m * m + 1),
+                    2 * m / (m * m + 1),
+                    2 * m / (m * m + 1),
+                    (m * m - 1) / (m * m + 1),
+                    2 * m * c / (m * m + 1),
+                    (-c * (m * m - 1)) / (m * m + 1));
             }
         }
     }
