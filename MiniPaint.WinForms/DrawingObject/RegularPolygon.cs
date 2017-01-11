@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniPaint.WinForms.LineGenerator;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
@@ -14,15 +15,18 @@ namespace MiniPaint.WinForms.DrawingObject
         private int n;
         private double firstVertexAngle;
 
-        public RegularPolygon(Point center, double circumradius, int n, double firstVertexAngle)
+        public Color ForegroundColor { get; set; }
+
+        public RegularPolygon(Point center, double circumradius, int n, double firstVertexAngle, Color c)
         {
             this.center = center;
             this.circumradius = circumradius;
             this.n = n;
             this.firstVertexAngle = firstVertexAngle;
+            ForegroundColor = c;
         }
 
-        public void Draw(Graphics g, Color c)
+        public void Draw(Graphics g)
         {
             int sx, sy, ex, ey;
 
@@ -33,7 +37,7 @@ namespace MiniPaint.WinForms.DrawingObject
                 ex = center.X + (int)(circumradius * Math.Cos(firstVertexAngle + (i + 1) * 2 * Math.PI / n));
                 ey = center.Y - (int)(circumradius * Math.Sin(firstVertexAngle + (i + 1) * 2 * Math.PI / n));
 
-                new LineGenerator.Bresenham(new Line(new Point(sx, sy), new Point(ex, ey))).Draw(g, c);
+                new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham()).Draw(g);
             }
         }
     }
