@@ -9,6 +9,8 @@ namespace MiniPaint.WinForms
 {
     interface IDrawable
     {
-        void Draw(Graphics g, Color c);
+        Color ForegroundColor { get; set; }
+
+        void Draw(Graphics g);
     }
 }
