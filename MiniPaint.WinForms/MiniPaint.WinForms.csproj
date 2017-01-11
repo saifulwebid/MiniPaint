@@ -68,6 +68,7 @@
     <Compile Include="IDrawable.cs" />
     <Compile Include="LineGenerator\Bresenham.cs" />
     <Compile Include="LineGenerator\Dda.cs" />
+    <Compile Include="LineGenerator\ILineGenerator.cs" />
     <Compile Include="LineGenerator\Naive.cs" />
     <Compile Include="Transformation\Matrix.cs" />
     <Compile Include="Program.cs" />
