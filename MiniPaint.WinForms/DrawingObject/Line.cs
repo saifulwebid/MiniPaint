@@ -19,6 +19,29 @@ namespace MiniPaint.WinForms.DrawingObject
             get;
         }
 
+        public double M
+        {
+            get
+            {
+                return (end.Y - start.Y) / (end.X - start.X);
+            }
+        }
+
+        public double C
+        {
+            get
+            {
+                if (double.IsInfinity(M))
+                {
+                    return -end.X;
+                }
+                else
+                {
+                    return end.Y - M * end.X;
+                }
+            }
+        }
+
         public Line(Point start, Point end)
         {
             this.start = start;
