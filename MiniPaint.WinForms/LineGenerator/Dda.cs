@@ -21,15 +21,15 @@ namespace MiniPaint.WinForms.LineGenerator
             Brush br = new SolidBrush(c);
             Size sz = new Size(1, 1);
 
-            int dx = line.end.X - line.start.X;
-            int dy = line.end.Y - line.start.Y;
+            int dx = line.End.X - line.Start.X;
+            int dy = line.End.Y - line.Start.Y;
 
             int step = Math.Max(Math.Abs(dx), Math.Abs(dy));
             double x_tambah = (double)dx / step;
             double y_tambah = (double)dy / step;
 
-            double x = line.start.X;
-            double y = line.start.Y;
+            double x = line.Start.X;
+            double y = line.Start.Y;
             while (step >= 0)
             {
                 g.FillRectangle(br, new Rectangle(new Point((int)x, (int)y), sz));

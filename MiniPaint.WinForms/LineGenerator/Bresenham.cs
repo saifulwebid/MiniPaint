@@ -24,22 +24,22 @@ namespace MiniPaint.WinForms.LineGenerator
             Brush br = new SolidBrush(c);
             Size sz = new Size(1, 1);
 
-            int dx = Math.Abs(line.end.X - line.start.X);
-            int sx = line.start.X < line.end.X ? 1 : -1;
+            int dx = Math.Abs(line.End.X - line.Start.X);
+            int sx = line.Start.X < line.End.X ? 1 : -1;
 
-            int dy = Math.Abs(line.end.Y - line.start.Y);
-            int sy = line.start.Y < line.end.Y ? 1 : -1;
+            int dy = Math.Abs(line.End.Y - line.Start.Y);
+            int sy = line.Start.Y < line.End.Y ? 1 : -1;
 
             int err = (dx > dy ? dx : -dy) / 2;
             int e2;
 
-            int x = line.start.X;
-            int y = line.start.Y;
+            int x = line.Start.X;
+            int y = line.Start.Y;
             while (true)
             {
                 g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
 
-                if (x == line.end.X && y == line.end.Y)
+                if (x == line.End.X && y == line.End.Y)
                     break;
 
                 e2 = err;

@@ -21,16 +21,16 @@ namespace MiniPaint.WinForms.LineGenerator
             Brush br = new SolidBrush(cr);
             Size sz = new Size(1, 1);
 
-            int dx = line.end.X - line.start.X;
-            int dy = line.end.Y - line.start.Y;
+            int dx = line.End.X - line.Start.X;
+            int dy = line.End.Y - line.Start.Y;
 
             double m = (double)dy / dx;
-            double c = line.start.Y - m * line.start.X;
+            double c = line.Start.Y - m * line.Start.X;
 
             if (Math.Abs(dx) > Math.Abs(dy))
             {
-                int x_start = Math.Min(line.start.X, line.end.X);
-                int x_end = Math.Max(line.start.X, line.end.X);
+                int x_start = Math.Min(line.Start.X, line.End.X);
+                int x_end = Math.Max(line.Start.X, line.End.X);
 
                 for (int x = x_start; x <= x_end; x++)
                 {
@@ -40,15 +40,15 @@ namespace MiniPaint.WinForms.LineGenerator
             }
             else
             {
-                int y_start = Math.Min(line.start.Y, line.end.Y);
-                int y_end = Math.Max(line.start.Y, line.end.Y);
+                int y_start = Math.Min(line.Start.Y, line.End.Y);
+                int y_end = Math.Max(line.Start.Y, line.End.Y);
 
                 for (int y = y_start; y <= y_end; y++)
                 {
                     int x;
                     if (dx == 0)
                     {
-                        x = line.start.X;
+                        x = line.Start.X;
                     }
                     else
                     {

@@ -9,12 +9,12 @@ namespace MiniPaint.WinForms.DrawingObject
 {
     class Line
     {
-        public Point start
+        public Point Start
         {
             get;
         }
 
-        public Point end
+        public Point End
         {
             get;
         }
@@ -23,7 +23,7 @@ namespace MiniPaint.WinForms.DrawingObject
         {
             get
             {
-                return (end.Y - start.Y) / (end.X - start.X);
+                return (End.Y - Start.Y) / (End.X - Start.X);
             }
         }
 
@@ -33,19 +33,19 @@ namespace MiniPaint.WinForms.DrawingObject
             {
                 if (double.IsInfinity(M))
                 {
-                    return -end.X;
+                    return -End.X;
                 }
                 else
                 {
-                    return end.Y - M * end.X;
+                    return End.Y - M * End.X;
                 }
             }
         }
 
         public Line(Point start, Point end)
         {
-            this.start = start;
-            this.end = end;
+            Start = start;
+            End = end;
         }
     }
 }
