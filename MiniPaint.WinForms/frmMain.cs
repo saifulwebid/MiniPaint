@@ -48,7 +48,7 @@ namespace MiniPaint.WinForms
                 pbxAxisColor.BackColor = value;
 
                 axis.ForegroundColor = value;
-                pbxCanvas.Invalidate();
+                btnRedraw_Click(null, null);
             }
         }
 
@@ -61,12 +61,12 @@ namespace MiniPaint.WinForms
             axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
             dragging = false;
 
-            ObjectColor = Color.Black;
-            AxisColor = Color.Gray;
-
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
             rdoToolboxPolynomialFunction_CheckedChanged(null, null);
+
+            ObjectColor = Color.Black;
+            AxisColor = Color.Gray;
         }
 
         private void pbxCanvas_Paint(object sender, PaintEventArgs e)
@@ -329,8 +329,6 @@ namespace MiniPaint.WinForms
             if (dr == DialogResult.OK)
             {
                 ObjectColor = dlgColor.Color;
-                pbxForegroundObjectColor.BackColor = ObjectColor;
-                btnRedraw_Click(sender, e);
             }
         }
 
@@ -340,8 +338,6 @@ namespace MiniPaint.WinForms
             if (dr == DialogResult.OK)
             {
                 AxisColor = dlgColor.Color;
-                pbxAxisColor.BackColor = AxisColor;
-                btnRedraw_Click(sender, e);
             }
         }
 
