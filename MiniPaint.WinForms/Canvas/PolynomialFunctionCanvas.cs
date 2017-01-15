@@ -7,64 +7,10 @@ using System.Threading.Tasks;
 
 namespace MiniPaint.WinForms.Canvas
 {
-    class PolynomialFunctionCanvas : ICanvas
+    class PolynomialFunctionCanvas : Canvas
     {
-        private int height;
-        private int width;
-
-        public Bitmap Bitmap { get; set; }
-        public int Height
+        public PolynomialFunctionCanvas(int height, int width) : base(height, width)
         {
-            get { return height; }
-            set
-            {
-                height = value;
-                Resize();
-            }
-        }
-        public int Width
-        {
-            get { return width; }
-            set
-            {
-                width = value;
-                Resize();
-            }
-        }
-
-        public event EventHandler BitmapChanged;
-
-        public PolynomialFunctionCanvas(int height, int width)
-        {
-            Bitmap = new Bitmap(height, width);
-            this.height = height;
-            this.width = width;
-        }
-
-        private void OnBitmapChanged()
-        {
-            EventHandler handler = BitmapChanged;
-
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
-        }
-
-        private void Resize()
-        {
-            Bitmap newBitmap = new Bitmap(Height, Width);
-
-            if (Bitmap != null)
-            {
-                using (Graphics g = Graphics.FromImage(newBitmap))
-                {
-                    g.DrawImage(Bitmap, 0, 0);
-                }
-                Bitmap.Dispose();
-            }
-            Bitmap = newBitmap;
-            OnBitmapChanged();
         }
     }
 }
