@@ -60,6 +60,7 @@ namespace MiniPaint.WinForms
 
             geoObjects = new Stack<IDrawable>();
             mathObjects = new Stack<IDrawable>();
+            actions = new Stack<IAction>();
             axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
             dragging = false;
 
