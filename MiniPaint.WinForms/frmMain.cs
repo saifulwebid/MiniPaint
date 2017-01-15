@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MiniPaint.WinForms.DrawingObject;
 using MiniPaint.WinForms.LineGenerator;
+using MiniPaint.WinForms.Action;
 
 namespace MiniPaint.WinForms
 {
@@ -16,6 +17,7 @@ namespace MiniPaint.WinForms
     {
         private Stack<IDrawable> objects;
         private Stack<IDrawable> geoObjects, mathObjects;
+        private Stack<IAction> actions;
         private Axis axis;
         private Point startPoint;
         private bool dragging;
