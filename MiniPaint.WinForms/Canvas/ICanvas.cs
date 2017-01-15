@@ -12,5 +12,7 @@ namespace MiniPaint.WinForms.Canvas
         Bitmap Bitmap { get; set; }
         int Height { get; set; }
         int Width { get; set; }
+
+        event EventHandler BitmapChanged;
     }
 }

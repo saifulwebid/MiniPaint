@@ -32,11 +32,23 @@ namespace MiniPaint.WinForms.Canvas
             }
         }
 
+        public event EventHandler BitmapChanged;
+
         public DrawingCanvas(int height, int width)
         {
             Bitmap = new Bitmap(height, width);
             this.height = height;
             this.width = width;
+        }
+
+        private void OnBitmapChanged()
+        {
+            EventHandler handler = BitmapChanged;
+
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void Resize()
@@ -52,6 +64,7 @@ namespace MiniPaint.WinForms.Canvas
                 Bitmap.Dispose();
             }
             Bitmap = newBitmap;
+            OnBitmapChanged();
         }
     }
 }
