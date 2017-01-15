@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiniPaint.WinForms.LineGenerator;
+using MiniPaint.WinForms.Transformation;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
-    class Star : IDrawable
+    class Star : IDrawable, ITransformable
     {
         private Point center;
         private double circumradius;
@@ -17,6 +18,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private double firstVertexAngle;
 
         public Color ForegroundColor { get; set; }
+        public Matrix TransformationMatrix { get; }
 
         public Star(Point center, double circumradius, int n, int skip, double firstVertexAngle, Color c)
         {
@@ -26,6 +28,7 @@ namespace MiniPaint.WinForms.DrawingObject
             this.skip = skip;
             this.firstVertexAngle = firstVertexAngle;
             ForegroundColor = c;
+            TransformationMatrix = Matrix.Identity;
         }
 
         public void Draw(Graphics g)
@@ -40,7 +43,9 @@ namespace MiniPaint.WinForms.DrawingObject
                 ex = center.X + (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Cos(firstVertexAngle + Math.PI * (i + 1) / n));
                 ey = center.Y - (int)(circumradius * ((i + 1) % 2 == 1 ? r : 1) * Math.Sin(firstVertexAngle + Math.PI * (i + 1) / n));
 
-                new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham()).Draw(g);
+                Line l = new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham());
+                l.TransformationMatrix.Apply(TransformationMatrix);
+                l.Draw(g);
             }
         }
     }
