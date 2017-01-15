@@ -73,6 +73,7 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IDrawable.cs" />
+    <Compile Include="ITransformable.cs" />
     <Compile Include="LineGenerator\Bresenham.cs" />
     <Compile Include="LineGenerator\Dda.cs" />
     <Compile Include="LineGenerator\ILineGenerator.cs" />
