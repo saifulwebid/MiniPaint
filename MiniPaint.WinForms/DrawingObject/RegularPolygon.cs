@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiniPaint.WinForms.LineGenerator;
+using MiniPaint.WinForms.Transformation;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
-    class RegularPolygon : IDrawable
+    class RegularPolygon : IDrawable, ITransformable
     {
         private Point center;
         private double circumradius;
@@ -16,6 +17,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private double firstVertexAngle;
 
         public Color ForegroundColor { get; set; }
+        public Matrix TransformationMatrix { get; }
 
         public RegularPolygon(Point center, double circumradius, int n, double firstVertexAngle, Color c)
         {
@@ -24,6 +26,7 @@ namespace MiniPaint.WinForms.DrawingObject
             this.n = n;
             this.firstVertexAngle = firstVertexAngle;
             ForegroundColor = c;
+            TransformationMatrix = Matrix.Identity;
         }
 
         public void Draw(Graphics g)
@@ -37,7 +40,9 @@ namespace MiniPaint.WinForms.DrawingObject
                 ex = center.X + (int)(circumradius * Math.Cos(firstVertexAngle + (i + 1) * 2 * Math.PI / n));
                 ey = center.Y - (int)(circumradius * Math.Sin(firstVertexAngle + (i + 1) * 2 * Math.PI / n));
 
-                new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham()).Draw(g);
+                Line l = new Line(new Point(sx, sy), new Point(ex, ey), ForegroundColor, new Bresenham());
+                l.TransformationMatrix.Apply(TransformationMatrix);
+                l.Draw(g);
             }
         }
     }
