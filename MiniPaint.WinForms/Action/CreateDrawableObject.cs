@@ -10,15 +10,17 @@ namespace MiniPaint.WinForms.Action
     class CreateDrawableObject : IAction
     {
         private IDrawable drawableObject;
+        private Graphics graphics;
 
-        public CreateDrawableObject(IDrawable o)
+        public CreateDrawableObject(IDrawable o, Graphics g)
         {
             drawableObject = o;
+            graphics = g;
         }
 
-        public void Do(Graphics g)
+        public void Do()
         {
-            drawableObject.Draw(g);
+            drawableObject.Draw(graphics);
         }
     }
 }

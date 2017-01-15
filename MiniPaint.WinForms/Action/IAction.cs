@@ -9,6 +9,6 @@ namespace MiniPaint.WinForms.Action
 {
     interface IAction
     {
-        void Do(Graphics g);
+        void Do();
     }
 }
