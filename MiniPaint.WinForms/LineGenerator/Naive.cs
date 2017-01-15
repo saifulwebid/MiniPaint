@@ -29,7 +29,7 @@ namespace MiniPaint.WinForms.LineGenerator
                 for (int x = x_start; x <= x_end; x++)
                 {
                     int y = (int)(m * x + c);
-                    g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
+                    g.FillRectangle(br, new Rectangle(l.TransformationMatrix.Transform(new Point(x, y)), sz));
                 }
             }
             else
@@ -49,7 +49,7 @@ namespace MiniPaint.WinForms.LineGenerator
                         x = (int)((y - c) / m);
                     }
 
-                    g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
+                    g.FillRectangle(br, new Rectangle(l.TransformationMatrix.Transform(new Point(x, y)), sz));
                 }
             }
         }

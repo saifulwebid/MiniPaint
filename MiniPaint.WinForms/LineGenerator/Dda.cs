@@ -26,7 +26,7 @@ namespace MiniPaint.WinForms.LineGenerator
             double y = l.Start.Y;
             while (step >= 0)
             {
-                g.FillRectangle(br, new Rectangle(new Point((int)x, (int)y), sz));
+                g.FillRectangle(br, new Rectangle(l.TransformationMatrix.Transform(new Point((int)x, (int)y)), sz));
                 x += x_tambah;
                 y += y_tambah;
                 step--;

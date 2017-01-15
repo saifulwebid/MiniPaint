@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiniPaint.WinForms.LineGenerator;
+using MiniPaint.WinForms.Transformation;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
-    class Line : IDrawable
+    class Line : IDrawable, ITransformable
     {
         public Point Start { get; }
         public Point End { get; }
@@ -35,6 +36,7 @@ namespace MiniPaint.WinForms.DrawingObject
         }
         public Color ForegroundColor { get; set; }
         public ILineGenerator LineGenerator { get; set; }
+        public Matrix TransformationMatrix { get; }
 
         public Line(Point start, Point end, Color c, ILineGenerator lg)
         {
@@ -42,6 +44,7 @@ namespace MiniPaint.WinForms.DrawingObject
             End = end;
             ForegroundColor = c;
             LineGenerator = lg;
+            TransformationMatrix = Matrix.Identity;
         }
 
         public void Draw(Graphics g)

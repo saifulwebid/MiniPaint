@@ -30,7 +30,7 @@ namespace MiniPaint.WinForms.LineGenerator
             int y = l.Start.Y;
             while (true)
             {
-                g.FillRectangle(br, new Rectangle(new Point(x, y), sz));
+                g.FillRectangle(br, new Rectangle(l.TransformationMatrix.Transform(new Point(x, y)), sz));
 
                 if (x == l.End.X && y == l.End.Y)
                     break;
