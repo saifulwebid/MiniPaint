@@ -66,5 +66,7 @@ namespace MiniPaint.WinForms.Canvas
             Bitmap = newBitmap;
             OnBitmapChanged();
         }
+
+        public abstract void Clear();
     }
 }

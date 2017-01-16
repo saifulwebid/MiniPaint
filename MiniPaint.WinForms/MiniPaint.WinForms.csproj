@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\ClearCanvas.cs" />
     <Compile Include="Action\CreateDrawableObject.cs" />
     <Compile Include="Action\IAction.cs" />
     <Compile Include="Canvas\Canvas.cs" />

@@ -50,5 +50,13 @@ namespace MiniPaint.WinForms.Canvas
 
             OnBitmapChanged();
         }
+
+        public override void Clear()
+        {
+            Bitmap.Dispose();
+            Bitmap = new Bitmap(Width, Height);
+
+            OnBitmapChanged();
+        }
     }
 }

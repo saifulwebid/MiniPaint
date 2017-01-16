@@ -12,5 +12,13 @@ namespace MiniPaint.WinForms.Canvas
         public PolynomialFunctionCanvas(int height, int width) : base(height, width)
         {
         }
+
+        public override void Clear()
+        {
+            Bitmap.Dispose();
+            Bitmap = new Bitmap(Width, Height);
+
+            OnBitmapChanged();
+        }
     }
 }
