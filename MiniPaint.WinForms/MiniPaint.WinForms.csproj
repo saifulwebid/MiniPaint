@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\ApplyTransformationMatrix.cs" />
     <Compile Include="Action\ClearCanvas.cs" />
     <Compile Include="Action\CreateDrawableObject.cs" />
     <Compile Include="Action\CreatePolynomialFunctionObject.cs" />
