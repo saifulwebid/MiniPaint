@@ -34,9 +34,9 @@ namespace MiniPaint.WinForms.Canvas
 
         public event EventHandler BitmapChanged;
 
-        public Canvas(int height, int width)
+        public Canvas(int width, int height)
         {
-            Bitmap = new Bitmap(height, width);
+            Bitmap = new Bitmap(width, height);
             this.height = height;
             this.width = width;
         }
@@ -53,7 +53,7 @@ namespace MiniPaint.WinForms.Canvas
 
         private void Resize()
         {
-            Bitmap newBitmap = new Bitmap(Height, Width);
+            Bitmap newBitmap = new Bitmap(Width, Height);
 
             if (Bitmap != null)
             {

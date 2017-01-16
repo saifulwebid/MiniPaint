@@ -69,8 +69,8 @@ namespace MiniPaint.WinForms
             dragging = false;
 
             /* Initialize canvas */
-            drawingCanvas = new DrawingCanvas(pbxCanvas.Height, pbxCanvas.Width);
-            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Height, pbxCanvas.Width);
+            drawingCanvas = new DrawingCanvas(pbxCanvas.Width, pbxCanvas.Height);
+            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Width, pbxCanvas.Height);
             activeCanvas = drawingCanvas;
             activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
 

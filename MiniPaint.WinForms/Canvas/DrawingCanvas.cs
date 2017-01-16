@@ -11,7 +11,7 @@ namespace MiniPaint.WinForms.Canvas
     {
         private Bitmap preDragBitmap;
 
-        public DrawingCanvas(int height, int width) : base(height, width)
+        public DrawingCanvas(int width, int height) : base(width, height)
         {
             preDragBitmap = null;
         }

@@ -9,7 +9,7 @@ namespace MiniPaint.WinForms.Canvas
 {
     class PolynomialFunctionCanvas : Canvas
     {
-        public PolynomialFunctionCanvas(int height, int width) : base(height, width)
+        public PolynomialFunctionCanvas(int width, int height) : base(width, height)
         {
         }
 
