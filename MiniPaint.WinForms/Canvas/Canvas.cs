@@ -51,7 +51,7 @@ namespace MiniPaint.WinForms.Canvas
             }
         }
 
-        private void Resize()
+        protected virtual void Resize()
         {
             Bitmap newBitmap = new Bitmap(Width, Height);
 
