@@ -39,6 +39,8 @@ namespace MiniPaint.WinForms.Canvas
             Bitmap = (Bitmap)preDragBitmap.Clone();
             preDragBitmap.Dispose();
             preDragBitmap = null;
+
+            OnBitmapChanged();
         }
 
         public void Draw(IDrawable o)
