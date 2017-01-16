@@ -15,6 +15,13 @@ namespace MiniPaint.WinForms.DrawingObject
 
         public double[] Constants { get; set; }
         public Color ForegroundColor { get; set; }
+        public string DisplayText
+        {
+            get
+            {
+                return "PolynomialFunction";
+            }
+        }
 
         public PolynomialFunction(double[] constants, PolynomialFunctionCanvas canvas, Color color)
         {

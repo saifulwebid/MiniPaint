@@ -18,6 +18,13 @@ namespace MiniPaint.WinForms.DrawingObject
 
         public Color ForegroundColor { get; set; }
         public Matrix TransformationMatrix { get; set; }
+        public string DisplayText
+        {
+            get
+            {
+                return string.Format("RegularPolygon at ({0}, {1}), n = {2}", center.X, center.Y, n);
+            }
+        }
 
         public RegularPolygon(Point center, double circumradius, int n, double firstVertexAngle, Color c)
         {

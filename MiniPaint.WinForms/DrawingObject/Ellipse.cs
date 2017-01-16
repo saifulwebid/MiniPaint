@@ -15,6 +15,13 @@ namespace MiniPaint.WinForms.DrawingObject
 
         public Color ForegroundColor { get; set; }
         public Matrix TransformationMatrix { get; set; }
+        public string DisplayText
+        {
+            get
+            {
+                return string.Format("Ellipse at ({0}, {1}), rx: {2}, ry: {3}", center.X, center.Y, rx, ry);
+            }
+        }
 
         public Ellipse(Point center, int rx, int ry, Color c)
         {

@@ -11,6 +11,8 @@ namespace MiniPaint.WinForms
     {
         Color ForegroundColor { get; set; }
 
+        string DisplayText { get; }
+
         void Draw(Graphics g);
     }
 }

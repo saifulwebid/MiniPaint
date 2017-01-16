@@ -14,6 +14,7 @@ namespace MiniPaint.WinForms.DrawingObject
         public int Width { get; set; }
         public int Scale { get; set; }
         public Color ForegroundColor { get; set; }
+        public string DisplayText { get { return "Axis"; } }
 
         public Axis(int width, int height, int scale, Color fg)
         {

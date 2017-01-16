@@ -37,6 +37,13 @@ namespace MiniPaint.WinForms.DrawingObject
         public Color ForegroundColor { get; set; }
         public ILineGenerator LineGenerator { get; set; }
         public Matrix TransformationMatrix { get; set;  }
+        public string DisplayText
+        {
+            get
+            {
+                return string.Format("Line from ({0}, {1}) to ({2}, {3})", Start.X, Start.Y, End.X, End.Y);
+            }
+        }
 
         public Line(Point start, Point end, Color c, ILineGenerator lg)
         {
