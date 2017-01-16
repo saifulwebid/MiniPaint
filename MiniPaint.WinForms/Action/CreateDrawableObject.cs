@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
+using MiniPaint.WinForms.Canvas;
 
 namespace MiniPaint.WinForms.Action
 {
     class CreateDrawableObject : IAction
     {
         private IDrawable drawableObject;
-        private Graphics graphics;
+        private DrawingCanvas canvas;
 
-        public CreateDrawableObject(IDrawable o, Graphics g)
+        public CreateDrawableObject(IDrawable o, DrawingCanvas c)
         {
             drawableObject = o;
-            graphics = g;
+            canvas = c;
         }
 
         public void Do()
         {
-            drawableObject.Draw(graphics);
+            canvas.Draw(drawableObject);
         }
     }
 }
