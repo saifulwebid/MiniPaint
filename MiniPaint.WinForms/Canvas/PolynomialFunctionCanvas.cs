@@ -61,6 +61,15 @@ namespace MiniPaint.WinForms.Canvas
             OnBitmapChanged();
         }
 
+        protected override void Resize()
+        {
+            base.Resize();
+
+            axis.ResetAxisSize(Width, Height);
+
+            GenerateBitmap();
+        }
+
         private void GenerateBitmap()
         {
             Clear();
