@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Action\ClearCanvas.cs" />
     <Compile Include="Action\CreateDrawableObject.cs" />
+    <Compile Include="Action\CreatePolynomialFunctionObject.cs" />
     <Compile Include="Action\IAction.cs" />
     <Compile Include="Canvas\Canvas.cs" />
     <Compile Include="Canvas\DrawingCanvas.cs" />
