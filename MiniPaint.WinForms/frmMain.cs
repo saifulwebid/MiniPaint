@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MiniPaint.WinForms.DrawingObject;
 using MiniPaint.WinForms.LineGenerator;
 using MiniPaint.WinForms.Action;
+using MiniPaint.WinForms.Canvas;
 
 namespace MiniPaint.WinForms
 {
@@ -25,6 +26,9 @@ namespace MiniPaint.WinForms
         private int scale = (1 << 6);
         private Color objectColor;
         private Color axisColor;
+        private Canvas.Canvas activeCanvas;
+        private DrawingCanvas drawingCanvas;
+        private PolynomialFunctionCanvas polynomialFunctionCanvas;
 
         public Color ObjectColor
         {
@@ -63,6 +67,11 @@ namespace MiniPaint.WinForms
             actions = new Stack<IAction>();
             axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
             dragging = false;
+
+            /* Initialize canvas */
+            drawingCanvas = new DrawingCanvas(pbxCanvas.Height, pbxCanvas.Width);
+            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Height, pbxCanvas.Width);
+            activeCanvas = drawingCanvas;
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
