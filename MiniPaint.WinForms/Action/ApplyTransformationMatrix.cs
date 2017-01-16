@@ -9,18 +9,29 @@ namespace MiniPaint.WinForms.Action
 {
     class ApplyTransformationMatrix : IAction
     {
-        private ITransformable drawableObject;
+        private frmMain form;
+        private int index;
         private Matrix transformationMatrix;
 
-        public ApplyTransformationMatrix(ITransformable o, Matrix m)
+        public ApplyTransformationMatrix(frmMain f, int i, Matrix m)
         {
-            drawableObject = o;
-            transformationMatrix = m;
+            form = f;
+            index = i;
+
+            Matrix objectTransMatrix = ((ITransformable)form.GeometryObjects[index]).TransformationMatrix;
+            objectTransMatrix = new Matrix(objectTransMatrix.M11,
+                objectTransMatrix.M12,
+                objectTransMatrix.M21,
+                objectTransMatrix.M22,
+                objectTransMatrix.OffsetX,
+                objectTransMatrix.OffsetY);
+            objectTransMatrix.Apply(m);
+            transformationMatrix = objectTransMatrix;
         }
         
         public void Do()
         {
-            drawableObject.TransformationMatrix.Apply(transformationMatrix);
+            ((ITransformable)form.GeometryObjects[index]).TransformationMatrix = transformationMatrix;
         }
     }
 }

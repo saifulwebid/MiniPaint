@@ -23,6 +23,7 @@ namespace MiniPaint.WinForms.Action
         public void Do()
         {
             canvas.Draw(drawableObject);
+            form.GeometryObjects.Add(drawableObject);
         }
     }
 }

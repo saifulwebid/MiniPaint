@@ -57,6 +57,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dlgColor = new System.Windows.Forms.ColorDialog();
+            this.grpObjectList = new System.Windows.Forms.GroupBox();
+            this.btnTransform = new System.Windows.Forms.Button();
+            this.dgvObjectList = new System.Windows.Forms.DataGridView();
+            this.rdoToolboxFloodFill = new System.Windows.Forms.RadioButton();
+            this.rdoToolboxBoundaryFill = new System.Windows.Forms.RadioButton();
             this.grpLineGeneratorAlgorithm.SuspendLayout();
             this.grpToolbox.SuspendLayout();
             this.grpNGonOptions.SuspendLayout();
@@ -64,6 +69,8 @@
             this.grpPolynomialFunction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxForegroundObjectColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAxisColor)).BeginInit();
+            this.grpObjectList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvObjectList)).BeginInit();
             this.SuspendLayout();
             // 
             // grpLineGeneratorAlgorithm
@@ -115,6 +122,8 @@
             // grpToolbox
             // 
             this.grpToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpToolbox.Controls.Add(this.rdoToolboxBoundaryFill);
+            this.grpToolbox.Controls.Add(this.rdoToolboxFloodFill);
             this.grpToolbox.Controls.Add(this.rdoToolboxPolynomialFunction);
             this.grpToolbox.Controls.Add(this.rdoToolboxStar);
             this.grpToolbox.Controls.Add(this.rdoToolboxRegularPolygon);
@@ -293,7 +302,7 @@
             this.pbxCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCanvas.Location = new System.Drawing.Point(12, 12);
             this.pbxCanvas.Name = "pbxCanvas";
-            this.pbxCanvas.Size = new System.Drawing.Size(684, 476);
+            this.pbxCanvas.Size = new System.Drawing.Size(391, 476);
             this.pbxCanvas.TabIndex = 9;
             this.pbxCanvas.TabStop = false;
             this.pbxCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbxCanvas_Paint);
@@ -346,13 +355,13 @@
             this.btnZoomIn.UseVisualStyleBackColor = true;
             this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             // 
-            // pbxObjectColor
+            // pbxForegroundObjectColor
             // 
             this.pbxForegroundObjectColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbxForegroundObjectColor.BackColor = System.Drawing.Color.Transparent;
             this.pbxForegroundObjectColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbxForegroundObjectColor.Location = new System.Drawing.Point(702, 424);
-            this.pbxForegroundObjectColor.Name = "pbxObjectColor";
+            this.pbxForegroundObjectColor.Name = "pbxForegroundObjectColor";
             this.pbxForegroundObjectColor.Size = new System.Drawing.Size(22, 22);
             this.pbxForegroundObjectColor.TabIndex = 13;
             this.pbxForegroundObjectColor.TabStop = false;
@@ -390,11 +399,74 @@
             this.label3.TabIndex = 16;
             this.label3.Text = "Axis color";
             // 
+            // grpObjectList
+            // 
+            this.grpObjectList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpObjectList.Controls.Add(this.btnTransform);
+            this.grpObjectList.Controls.Add(this.dgvObjectList);
+            this.grpObjectList.Location = new System.Drawing.Point(409, 12);
+            this.grpObjectList.Name = "grpObjectList";
+            this.grpObjectList.Size = new System.Drawing.Size(287, 476);
+            this.grpObjectList.TabIndex = 17;
+            this.grpObjectList.TabStop = false;
+            this.grpObjectList.Text = "Object list";
+            // 
+            // btnTransform
+            // 
+            this.btnTransform.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTransform.Enabled = false;
+            this.btnTransform.Location = new System.Drawing.Point(6, 447);
+            this.btnTransform.Name = "btnTransform";
+            this.btnTransform.Size = new System.Drawing.Size(99, 23);
+            this.btnTransform.TabIndex = 1;
+            this.btnTransform.Text = "Transform";
+            this.btnTransform.UseVisualStyleBackColor = true;
+            this.btnTransform.Click += new System.EventHandler(this.btnTransform_Click);
+            // 
+            // dgvObjectList
+            // 
+            this.dgvObjectList.AllowUserToAddRows = false;
+            this.dgvObjectList.AllowUserToDeleteRows = false;
+            this.dgvObjectList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvObjectList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvObjectList.Location = new System.Drawing.Point(6, 21);
+            this.dgvObjectList.Name = "dgvObjectList";
+            this.dgvObjectList.ReadOnly = true;
+            this.dgvObjectList.RowTemplate.Height = 24;
+            this.dgvObjectList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvObjectList.Size = new System.Drawing.Size(275, 420);
+            this.dgvObjectList.TabIndex = 0;
+            // 
+            // rdoToolboxFloodFill
+            // 
+            this.rdoToolboxFloodFill.AutoSize = true;
+            this.rdoToolboxFloodFill.Location = new System.Drawing.Point(162, 28);
+            this.rdoToolboxFloodFill.Name = "rdoToolboxFloodFill";
+            this.rdoToolboxFloodFill.Size = new System.Drawing.Size(45, 21);
+            this.rdoToolboxFloodFill.TabIndex = 6;
+            this.rdoToolboxFloodFill.TabStop = true;
+            this.rdoToolboxFloodFill.Text = "FF";
+            this.rdoToolboxFloodFill.UseVisualStyleBackColor = true;
+            // 
+            // rdoToolboxBoundaryFill
+            // 
+            this.rdoToolboxBoundaryFill.AutoSize = true;
+            this.rdoToolboxBoundaryFill.Location = new System.Drawing.Point(213, 28);
+            this.rdoToolboxBoundaryFill.Name = "rdoToolboxBoundaryFill";
+            this.rdoToolboxBoundaryFill.Size = new System.Drawing.Size(46, 21);
+            this.rdoToolboxBoundaryFill.TabIndex = 7;
+            this.rdoToolboxBoundaryFill.TabStop = true;
+            this.rdoToolboxBoundaryFill.Text = "BF";
+            this.rdoToolboxBoundaryFill.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(975, 500);
+            this.Controls.Add(this.grpObjectList);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbxAxisColor);
@@ -420,6 +492,8 @@
             this.grpPolynomialFunction.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxForegroundObjectColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAxisColor)).EndInit();
+            this.grpObjectList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvObjectList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -455,6 +529,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ColorDialog dlgColor;
+        private System.Windows.Forms.GroupBox grpObjectList;
+        private System.Windows.Forms.DataGridView dgvObjectList;
+        private System.Windows.Forms.Button btnTransform;
+        private System.Windows.Forms.RadioButton rdoToolboxFloodFill;
+        private System.Windows.Forms.RadioButton rdoToolboxBoundaryFill;
     }
 }
 

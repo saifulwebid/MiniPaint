@@ -11,6 +11,7 @@ using MiniPaint.WinForms.DrawingObject;
 using MiniPaint.WinForms.LineGenerator;
 using MiniPaint.WinForms.Action;
 using MiniPaint.WinForms.Canvas;
+using MiniPaint.WinForms.Transformation;
 
 namespace MiniPaint.WinForms
 {
@@ -20,9 +21,6 @@ namespace MiniPaint.WinForms
         private Point startPoint;
         private bool dragging;
         private Color objectColor;
-        private Canvas.Canvas activeCanvas;
-        private DrawingCanvas drawingCanvas;
-        private PolynomialFunctionCanvas polynomialFunctionCanvas;
 
         public Color ObjectColor
         {
@@ -40,30 +38,56 @@ namespace MiniPaint.WinForms
         {
             get
             {
-                return polynomialFunctionCanvas.AxisColor;
+                return PolynomialFunctionCanvas.AxisColor;
             }
             set
             {
-                polynomialFunctionCanvas.AxisColor = value;
+                PolynomialFunctionCanvas.AxisColor = value;
                 pbxAxisColor.BackColor = value;
             }
         }
+        internal Canvas.Canvas ActiveCanvas { get; private set; }
+        internal DrawingCanvas DrawingCanvas { get; private set; }
+        internal PolynomialFunctionCanvas PolynomialFunctionCanvas { get; private set; }
+        internal BindingList<IDrawable> GeometryObjects { get; private set; }
 
         public frmMain()
         {
             InitializeComponent();
             
             actions = new List<IAction>();
+            GeometryObjects = new BindingList<IDrawable>();
             dragging = false;
 
             /* Initialize canvas */
-            drawingCanvas = new DrawingCanvas(pbxCanvas.Width, pbxCanvas.Height);
-            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Width, pbxCanvas.Height, Color.Gray);
-            activeCanvas = drawingCanvas;
-            activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
+            DrawingCanvas = new DrawingCanvas(pbxCanvas.Width, pbxCanvas.Height);
+            PolynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Width, pbxCanvas.Height, Color.Gray);
+            ActiveCanvas = DrawingCanvas;
+            ActiveCanvas.BitmapChanged += new EventHandler(CanvasChanged);
 
             ObjectColor = Color.Black;
             AxisColor = Color.Gray;
+
+            /* Wire dgvObjectList with GeometryObjects */
+            dgvObjectList.AutoGenerateColumns = false;
+
+            DataGridViewCell cell = new DataGridViewTextBoxCell();
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn()
+            {
+                CellTemplate = cell,
+                Name = "ObjectColumn",
+                HeaderText = "Object",
+                DataPropertyName = "DisplayText" // Tell the column which property of FileName it should use
+            };
+            dgvObjectList.Columns.Add(col);
+            dgvObjectList.DataSource = GeometryObjects;
+
+            GeometryObjects.ListChanged += GeometryObjects_ListChanged;
+        }
+
+        private void GeometryObjects_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            btnTransform.Enabled = GeometryObjects.Count > 0;
         }
 
         private void CanvasChanged(object sender, EventArgs e)
@@ -73,7 +97,7 @@ namespace MiniPaint.WinForms
 
         private void pbxCanvas_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(activeCanvas.Bitmap, 0, 0);
+            e.Graphics.DrawImage(ActiveCanvas.Bitmap, 0, 0);
         }
 
         private void pbxCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -82,7 +106,7 @@ namespace MiniPaint.WinForms
             {
                 dragging = true;
                 startPoint = new Point(e.X, e.Y);
-                drawingCanvas.PrepareForDragging();
+                DrawingCanvas.PrepareForDragging();
 
                 CancelEventArgs c = new CancelEventArgs();
                 txtNGonEdges_Validating(txtNGonEdges, c);
@@ -97,19 +121,23 @@ namespace MiniPaint.WinForms
         {
             if (dragging)
             {
-                IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
-                IAction a = new CreateDrawableObject(objectToDraw, drawingCanvas, this);
-                actions.Add(a);
+                DrawingCanvas.FinishDragging();
 
-                drawingCanvas.FinishDragging();
-                a.Do();
+                IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
+                if (objectToDraw != null)
+                {
+                    IAction a = new CreateDrawableObject(objectToDraw, DrawingCanvas, this);
+                    actions.Add(a);
+                    a.Do();
+                }
             }
         }
 
         private void btnRedraw_Click(object sender, EventArgs e)
         {
-            drawingCanvas.Clear();
-            polynomialFunctionCanvas.Clear();
+            DrawingCanvas.Clear();
+            PolynomialFunctionCanvas.Clear();
+            GeometryObjects.Clear();
 
             foreach (IAction a in actions)
             {
@@ -121,15 +149,17 @@ namespace MiniPaint.WinForms
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            IAction a = new ClearCanvas(activeCanvas);
+            GeometryObjects.Clear();
+
+            IAction a = new ClearCanvas(this);
             actions.Add(a);
             a.Do();
         }
 
         private void pbxCanvas_Resize(object sender, EventArgs e)
         {
-            drawingCanvas.Height = polynomialFunctionCanvas.Height = pbxCanvas.Height;
-            drawingCanvas.Width = polynomialFunctionCanvas.Width = pbxCanvas.Width;
+            DrawingCanvas.Height = PolynomialFunctionCanvas.Height = pbxCanvas.Height;
+            DrawingCanvas.Width = PolynomialFunctionCanvas.Width = pbxCanvas.Width;
 
             btnRedraw.PerformClick();
         }
@@ -140,7 +170,7 @@ namespace MiniPaint.WinForms
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
 
-                drawingCanvas.PreviewOnDrag(objectToDraw);
+                DrawingCanvas.PreviewOnDrag(objectToDraw);
             }
         }
 
@@ -235,23 +265,23 @@ namespace MiniPaint.WinForms
         {
             grpPolynomialFunction.Enabled = rdoToolboxPolynomialFunction.Checked;
 
-            if (activeCanvas != null)
-                activeCanvas.BitmapChanged -= CanvasChanged;
+            if (ActiveCanvas != null)
+                ActiveCanvas.BitmapChanged -= CanvasChanged;
 
             if (rdoToolboxPolynomialFunction.Checked)
             {
-                activeCanvas = polynomialFunctionCanvas;
-                activeCanvas.BitmapChanged += CanvasChanged;
+                ActiveCanvas = PolynomialFunctionCanvas;
+                ActiveCanvas.BitmapChanged += CanvasChanged;
 
-                if (polynomialFunctionCanvas.Objects.Count == 0)
+                if (PolynomialFunctionCanvas.Objects.Count == 0)
                 {
                     btnEditFunction.PerformClick();
                 }
             }
             else
             {
-                activeCanvas = drawingCanvas;
-                activeCanvas.BitmapChanged += CanvasChanged;
+                ActiveCanvas = DrawingCanvas;
+                ActiveCanvas.BitmapChanged += CanvasChanged;
             }
 
             btnRedraw.PerformClick();
@@ -259,16 +289,16 @@ namespace MiniPaint.WinForms
 
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
-            polynomialFunctionCanvas.Scale = (polynomialFunctionCanvas.Scale << 1);
-            btnZoomOut.Enabled = (polynomialFunctionCanvas.Scale > 1);
+            PolynomialFunctionCanvas.Scale = (PolynomialFunctionCanvas.Scale << 1);
+            btnZoomOut.Enabled = (PolynomialFunctionCanvas.Scale > 1);
         }
 
         private void btnEditFunction_Click(object sender, EventArgs e)
         {
             Form frm;
-            if (polynomialFunctionCanvas.Objects.Count > 0)
+            if (PolynomialFunctionCanvas.Objects.Count > 0)
             {
-                frm = new frmEditPolyFunc(polynomialFunctionCanvas.Objects.Last().Constants);
+                frm = new frmEditPolyFunc(PolynomialFunctionCanvas.Objects.Last().Constants);
             }
             else
             {
@@ -280,8 +310,8 @@ namespace MiniPaint.WinForms
 
         public void ChangePolynomialFunction(double[] constants)
         {
-            PolynomialFunction f = new PolynomialFunction(constants, polynomialFunctionCanvas, ObjectColor);
-            IAction a = new CreatePolynomialFunctionObject(f, polynomialFunctionCanvas);
+            PolynomialFunction f = new PolynomialFunction(constants, PolynomialFunctionCanvas, ObjectColor);
+            IAction a = new CreatePolynomialFunctionObject(f, PolynomialFunctionCanvas);
             actions.Add(a);
             a.Do();
         }
@@ -306,8 +336,8 @@ namespace MiniPaint.WinForms
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
-            polynomialFunctionCanvas.Scale = (polynomialFunctionCanvas.Scale >> 1);
-            btnZoomOut.Enabled = (polynomialFunctionCanvas.Scale > 1);
+            PolynomialFunctionCanvas.Scale = (PolynomialFunctionCanvas.Scale >> 1);
+            btnZoomOut.Enabled = (PolynomialFunctionCanvas.Scale > 1);
         }
 
         private IDrawable getDrawnObject(Point start, Point end)
@@ -349,7 +379,7 @@ namespace MiniPaint.WinForms
 
                 return new RegularPolygon(start, circumradius, Convert.ToInt32(txtNGonEdges.Text), angle, ObjectColor);
             }
-            else // rdoToolboxStar.Checked
+            else if (rdoToolboxStar.Checked)
             {
                 double circumradius = Math.Sqrt((end.X - start.X) * (end.X - start.X) +
                     (end.Y - start.Y) * (end.Y - start.Y));
@@ -357,6 +387,38 @@ namespace MiniPaint.WinForms
 
                 return new Star(start, circumradius, Convert.ToInt32(txtNGonEdges.Text),
                     Convert.ToInt32(txtNGonSkip.Text), angle, ObjectColor);
+            }
+            else if (rdoToolboxFloodFill.Checked)
+            {
+                return new FloodFill(end, ObjectColor, DrawingCanvas);
+            }
+            else
+            {
+                MessageBox.Show("Sesudah ini, pilih warna boundary.");
+                DialogResult dr = dlgColor.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    Color boundaryColor = dlgColor.Color;
+                    return new BoundaryFill(end, ObjectColor, boundaryColor, DrawingCanvas);
+                }
+            }
+            return null;
+        }
+
+        private void btnTransform_Click(object sender, EventArgs e)
+        {
+            ITransformable o = (ITransformable)dgvObjectList.SelectedRows[0].DataBoundItem;
+            int index = GeometryObjects.IndexOf((IDrawable)o);
+
+            frmTransformationCreator f = new frmTransformationCreator();
+            f.ShowDialog(this);
+
+            if (f.TransformationMatrix != null)
+            {
+                IAction a = new ApplyTransformationMatrix(this, index, f.TransformationMatrix);
+                actions.Add(a);
+                a.Do();
+                btnRedraw.PerformClick();
             }
         }
     }
