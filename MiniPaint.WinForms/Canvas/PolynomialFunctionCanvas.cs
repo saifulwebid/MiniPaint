@@ -23,6 +23,7 @@ namespace MiniPaint.WinForms.Canvas
             {
                 axisColor = value;
                 axis.ForegroundColor = value;
+                GenerateBitmap();
             }
         }
         public int Scale
@@ -32,6 +33,7 @@ namespace MiniPaint.WinForms.Canvas
             {
                 scale = value;
                 axis.Scale = value;
+                GenerateBitmap();
             }
         }
 
@@ -48,12 +50,29 @@ namespace MiniPaint.WinForms.Canvas
 
         private void Objects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            GenerateBitmap();
         }
 
         public override void Clear()
         {
             Bitmap.Dispose();
             Bitmap = new Bitmap(Width, Height);
+
+            OnBitmapChanged();
+        }
+
+        private void GenerateBitmap()
+        {
+            Clear();
+            
+            using (Graphics g = Graphics.FromImage(Bitmap))
+            {
+                axis.Draw(g);
+                foreach (PolynomialFunction f in Objects)
+                {
+                    f.Draw(g);
+                }
+            }
 
             OnBitmapChanged();
         }
