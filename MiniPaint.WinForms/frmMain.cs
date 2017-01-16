@@ -16,7 +16,7 @@ namespace MiniPaint.WinForms
 {
     public partial class frmMain : Form
     {
-        private Stack<IAction> actions;
+        private List<IAction> actions;
         private Point startPoint;
         private bool dragging;
         private Color objectColor;
@@ -53,7 +53,7 @@ namespace MiniPaint.WinForms
         {
             InitializeComponent();
             
-            actions = new Stack<IAction>();
+            actions = new List<IAction>();
             dragging = false;
 
             /* Initialize canvas */
@@ -99,7 +99,7 @@ namespace MiniPaint.WinForms
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
                 IAction a = new CreateDrawableObject(objectToDraw, drawingCanvas, this);
-                actions.Push(a);
+                actions.Add(a);
 
                 drawingCanvas.FinishDragging();
                 a.Do();
@@ -122,7 +122,7 @@ namespace MiniPaint.WinForms
         private void btnClear_Click(object sender, EventArgs e)
         {
             IAction a = new ClearCanvas(activeCanvas);
-            actions.Push(a);
+            actions.Add(a);
             a.Do();
         }
 
@@ -151,7 +151,7 @@ namespace MiniPaint.WinForms
 
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            actions.Pop();
+            actions.RemoveAt(actions.Count - 1);
             btnRedraw.PerformClick();
         }
 
@@ -282,7 +282,7 @@ namespace MiniPaint.WinForms
         {
             PolynomialFunction f = new PolynomialFunction(constants, polynomialFunctionCanvas, ObjectColor);
             IAction a = new CreatePolynomialFunctionObject(f, polynomialFunctionCanvas);
-            actions.Push(a);
+            actions.Add(a);
             a.Do();
         }
 
