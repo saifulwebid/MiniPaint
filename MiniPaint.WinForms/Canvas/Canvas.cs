@@ -41,7 +41,7 @@ namespace MiniPaint.WinForms.Canvas
             this.width = width;
         }
 
-        private void OnBitmapChanged()
+        protected void OnBitmapChanged()
         {
             EventHandler handler = BitmapChanged;
 
