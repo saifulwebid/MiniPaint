@@ -16,13 +16,11 @@ namespace MiniPaint.WinForms
 {
     public partial class frmMain : Form
     {
-        private Stack<IDrawable> objects;
-        private Stack<IDrawable> geoObjects, mathObjects;
+        private Stack<IDrawable> mathObjects;
         private Stack<IAction> actions;
         private Axis axis;
         private Point startPoint;
         private bool dragging;
-        private Bitmap drawingBitmap, preClickBitmap;
         private int scale = (1 << 6);
         private Color objectColor;
         private Color axisColor;
@@ -61,8 +59,7 @@ namespace MiniPaint.WinForms
         public frmMain()
         {
             InitializeComponent();
-
-            geoObjects = new Stack<IDrawable>();
+            
             mathObjects = new Stack<IDrawable>();
             actions = new Stack<IAction>();
             axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
@@ -89,7 +86,7 @@ namespace MiniPaint.WinForms
 
         private void pbxCanvas_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(drawingBitmap, 0, 0);
+            e.Graphics.DrawImage(activeCanvas.Bitmap, 0, 0);
         }
 
         private void pbxCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -98,7 +95,7 @@ namespace MiniPaint.WinForms
             {
                 dragging = true;
                 startPoint = new Point(e.X, e.Y);
-                preClickBitmap = (Bitmap)drawingBitmap.Clone();
+                drawingCanvas.PrepareForDragging();
 
                 CancelEventArgs c = new CancelEventArgs();
                 txtNGonEdges_Validating(txtNGonEdges, c);
@@ -114,74 +111,38 @@ namespace MiniPaint.WinForms
             if (dragging)
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
-                geoObjects.Push(objectToDraw);
+                IAction a = new CreateDrawableObject(objectToDraw, drawingCanvas);
+                actions.Push(a);
 
-                drawingBitmap.Dispose();
-                drawingBitmap = (Bitmap)preClickBitmap.Clone();
-                using (Graphics g = Graphics.FromImage(drawingBitmap))
-                {
-                    objectToDraw.Draw(g);
-                }
-
-                dragging = false;
-                preClickBitmap.Dispose();
-                ((Control)sender).Invalidate();
+                drawingCanvas.FinishDragging();
+                a.Do();
             }
         }
 
         private void btnRedraw_Click(object sender, EventArgs e)
         {
-            if (drawingBitmap != null)
-                drawingBitmap.Dispose();
+            drawingCanvas.Clear();
+            polynomialFunctionCanvas.Clear();
 
-            drawingBitmap = new Bitmap(pbxCanvas.Width, pbxCanvas.Height);
-
-            using (Graphics g = Graphics.FromImage(drawingBitmap))
+            foreach (IAction a in actions)
             {
-                if (rdoToolboxPolynomialFunction.Checked)
-                {
-                    axis.Draw(g);
-                }
-
-                foreach (IDrawable o in objects)
-                {
-                    o.Draw(g);
-                }
+                a.Do();
             }
-
-            pbxCanvas.Invalidate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            objects.Clear();
-            btnRedraw_Click(sender, e);
+            IAction a = new ClearCanvas(activeCanvas);
+            actions.Push(a);
+            a.Do();
         }
 
         private void pbxCanvas_Resize(object sender, EventArgs e)
         {
-            Control o = (Control)sender;
-            Bitmap newBitmap = new Bitmap(o.Width, o.Height);
+            drawingCanvas.Height = polynomialFunctionCanvas.Height = pbxCanvas.Height;
+            drawingCanvas.Width = polynomialFunctionCanvas.Width = pbxCanvas.Width;
 
-            if (drawingBitmap != null)
-            {
-                using (Graphics g = Graphics.FromImage(newBitmap))
-                {
-                    g.DrawImage(drawingBitmap, 0, 0);
-                }
-                drawingBitmap.Dispose();
-            }
-            drawingBitmap = newBitmap;
-
-            axis.ResetAxisSize(o.Height, o.Width);
-            foreach (PolynomialFunction obj in mathObjects)
-            {
-                obj.ResetAxisSize(o.Height, o.Width);
-            }
-            if (rdoToolboxPolynomialFunction.Checked)
-            {
-                btnRedraw_Click(sender, e);
-            }
+            btnRedraw_Click(sender, e);
         }
 
         private void pbxCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -190,14 +151,7 @@ namespace MiniPaint.WinForms
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
 
-                drawingBitmap.Dispose();
-                drawingBitmap = (Bitmap)preClickBitmap.Clone();
-                using (Graphics g = Graphics.FromImage(drawingBitmap))
-                {
-                    objectToDraw.Draw(g);
-                }
-
-                ((Control)sender).Invalidate();
+                drawingCanvas.PreviewOnDrag(objectToDraw);
             }
         }
 
@@ -208,11 +162,8 @@ namespace MiniPaint.WinForms
 
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            if (objects.Count > 0)
-            {
-                objects.Pop();
-                btnRedraw_Click(sender, e);
-            }
+            actions.Pop();
+            btnRedraw.PerformClick();
         }
 
         private void toolboxNGon_CheckedChanged(object sender, EventArgs e)
@@ -294,9 +245,14 @@ namespace MiniPaint.WinForms
         private void rdoToolboxPolynomialFunction_CheckedChanged(object sender, EventArgs e)
         {
             grpPolynomialFunction.Enabled = rdoToolboxPolynomialFunction.Checked;
+
+            if (activeCanvas != null)
+                activeCanvas.BitmapChanged -= new EventHandler(CanvasChanged);
+
             if (rdoToolboxPolynomialFunction.Checked)
             {
-                objects = mathObjects;
+                activeCanvas = polynomialFunctionCanvas;
+
                 if (mathObjects.Count == 0)
                 {
                     btnEditFunction_Click(sender, e);
@@ -304,8 +260,10 @@ namespace MiniPaint.WinForms
             }
             else
             {
-                objects = geoObjects;
+                activeCanvas = drawingCanvas;
             }
+
+            activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
             btnRedraw_Click(sender, e);
         }
 
