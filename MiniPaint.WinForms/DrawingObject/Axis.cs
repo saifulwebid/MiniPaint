@@ -15,7 +15,7 @@ namespace MiniPaint.WinForms.DrawingObject
         public int Scale { get; set; }
         public Color ForegroundColor { get; set; }
 
-        public Axis(int height, int width, int scale, Color fg)
+        public Axis(int width, int height, int scale, Color fg)
         {
             Height = height;
             Width = width;
@@ -23,7 +23,7 @@ namespace MiniPaint.WinForms.DrawingObject
             ForegroundColor = fg;
         }
 
-        public void ResetAxisSize(int height, int width)
+        public void ResetAxisSize(int width, int height)
         {
             Height = height;
             Width = width;
