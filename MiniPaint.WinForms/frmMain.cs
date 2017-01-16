@@ -72,6 +72,7 @@ namespace MiniPaint.WinForms
             drawingCanvas = new DrawingCanvas(pbxCanvas.Height, pbxCanvas.Width);
             polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Height, pbxCanvas.Width);
             activeCanvas = drawingCanvas;
+            activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
 
             rdoToolboxLine_CheckedChanged(null, null);
             toolboxNGon_CheckedChanged(null, null);
@@ -79,6 +80,11 @@ namespace MiniPaint.WinForms
 
             ObjectColor = Color.Black;
             AxisColor = Color.Gray;
+        }
+
+        private void CanvasChanged(object sender, EventArgs e)
+        {
+            pbxCanvas.Invalidate();
         }
 
         private void pbxCanvas_Paint(object sender, PaintEventArgs e)
