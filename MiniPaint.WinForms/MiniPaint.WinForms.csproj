@@ -58,6 +58,7 @@
     <Compile Include="DrawingObject\BoundaryFill.cs" />
     <Compile Include="DrawingObject\Circle.cs" />
     <Compile Include="DrawingObject\Ellipse.cs" />
+    <Compile Include="DrawingObject\FloodFill.cs" />
     <Compile Include="DrawingObject\PolynomialFunction.cs" />
     <Compile Include="DrawingObject\Line.cs" />
     <Compile Include="DrawingObject\RegularPolygon.cs" />
