@@ -5,30 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiniPaint.WinForms.LineGenerator;
+using MiniPaint.WinForms.Canvas;
 
 namespace MiniPaint.WinForms.DrawingObject
 {
     class PolynomialFunction : IDrawable
     {
+        private PolynomialFunctionCanvas canvas;
+
         public double[] Constants { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
-        public int Scale { get; set; }
         public Color ForegroundColor { get; set; }
 
-        public PolynomialFunction(double[] constants, int height, int width, int scale, Color c)
+        public PolynomialFunction(double[] constants, PolynomialFunctionCanvas canvas, Color color)
         {
             Constants = constants;
-            Height = height;
-            Width = width;
-            Scale = scale;
-            ForegroundColor = c;
-        }
-
-        public void ResetAxisSize(int height, int width)
-        {
-            Height = height;
-            Width = width;
+            ForegroundColor = color;
+            this.canvas = canvas;
         }
 
         private double yResult(double x)
@@ -45,23 +37,23 @@ namespace MiniPaint.WinForms.DrawingObject
 
         private int yPlotter(double x)
         {
-            int center = Height / 2;
+            int center = canvas.Height / 2;
 
-            return center - (int)(yResult(x / Scale) * Scale);
+            return center - (int)(yResult(x / canvas.Scale) * canvas.Scale);
         }
 
         public void Draw(Graphics g)
         {
-            Point center = new Point(Width / 2, Height / 2);
+            Point center = new Point(canvas.Width / 2, canvas.Height / 2);
 
             int x_prev = 0;
             int y_prev = yPlotter(x_prev);
 
-            for (int x = 1; x <= Width - center.X; x++)
+            for (int x = 1; x <= canvas.Width - center.X; x++)
             {
                 int y = yPlotter(x);
 
-                if (y_prev >= 0 && y_prev <= Height)
+                if (y_prev >= 0 && y_prev <= canvas.Height)
                     new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y), ForegroundColor, new Dda()).Draw(g);
 
                 x_prev = x;
@@ -75,7 +67,7 @@ namespace MiniPaint.WinForms.DrawingObject
             {
                 int y = yPlotter(x);
 
-                if (y_prev >= 0 && y_prev <= Height)
+                if (y_prev >= 0 && y_prev <= canvas.Height)
                     new Line(new Point(x_prev + center.X, y_prev), new Point(x + center.X, y), ForegroundColor, new Dda()).Draw(g);
 
                 x_prev = x;
