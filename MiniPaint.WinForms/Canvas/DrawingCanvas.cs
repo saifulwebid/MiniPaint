@@ -40,6 +40,15 @@ namespace MiniPaint.WinForms.Canvas
             preDragBitmap.Dispose();
             preDragBitmap = null;
         }
+
+        public void Draw(IDrawable o)
+        {
+            using (Graphics g = Graphics.FromImage(Bitmap))
+            {
+                o.Draw(g);
+            }
+
+            OnBitmapChanged();
         }
     }
 }
