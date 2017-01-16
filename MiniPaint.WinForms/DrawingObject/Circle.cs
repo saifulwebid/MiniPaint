@@ -14,7 +14,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private int radius;
 
         public Color ForegroundColor { get; set; }
-        public Matrix TransformationMatrix { get; }
+        public Matrix TransformationMatrix { get; set; }
 
         public Circle(Point center, int radius, Color c)
         {

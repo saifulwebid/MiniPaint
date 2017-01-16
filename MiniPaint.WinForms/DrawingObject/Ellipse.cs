@@ -14,7 +14,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private int rx, ry;
 
         public Color ForegroundColor { get; set; }
-        public Matrix TransformationMatrix { get; }
+        public Matrix TransformationMatrix { get; set; }
 
         public Ellipse(Point center, int rx, int ry, Color c)
         {

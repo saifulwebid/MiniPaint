@@ -9,6 +9,6 @@ namespace MiniPaint.WinForms
 {
     interface ITransformable
     {
-        Matrix TransformationMatrix { get; }
+        Matrix TransformationMatrix { get; set; }
     }
 }

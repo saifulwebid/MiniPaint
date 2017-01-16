@@ -18,7 +18,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private double firstVertexAngle;
 
         public Color ForegroundColor { get; set; }
-        public Matrix TransformationMatrix { get; }
+        public Matrix TransformationMatrix { get; set; }
 
         public Star(Point center, double circumradius, int n, int skip, double firstVertexAngle, Color c)
         {

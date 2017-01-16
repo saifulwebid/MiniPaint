@@ -17,7 +17,7 @@ namespace MiniPaint.WinForms.DrawingObject
         private double firstVertexAngle;
 
         public Color ForegroundColor { get; set; }
-        public Matrix TransformationMatrix { get; }
+        public Matrix TransformationMatrix { get; set; }
 
         public RegularPolygon(Point center, double circumradius, int n, double firstVertexAngle, Color c)
         {
