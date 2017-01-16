@@ -55,6 +55,7 @@
     <Compile Include="Canvas\DrawingCanvas.cs" />
     <Compile Include="Canvas\PolynomialFunctionCanvas.cs" />
     <Compile Include="DrawingObject\Axis.cs" />
+    <Compile Include="DrawingObject\BoundaryFill.cs" />
     <Compile Include="DrawingObject\Circle.cs" />
     <Compile Include="DrawingObject\Ellipse.cs" />
     <Compile Include="DrawingObject\PolynomialFunction.cs" />
