@@ -15,7 +15,7 @@ namespace MiniPaint.WinForms.Canvas
         private Color axisColor;
         private int scale;
 
-        public ObservableCollection<PolynomialFunction> Objects { get; set; }
+        public ObservableCollection<PolynomialFunction> Objects { get; private set; }
         public Color AxisColor
         {
             get { return axisColor; }
