@@ -16,14 +16,10 @@ namespace MiniPaint.WinForms
 {
     public partial class frmMain : Form
     {
-        private Stack<IDrawable> mathObjects;
         private Stack<IAction> actions;
-        private Axis axis;
         private Point startPoint;
         private bool dragging;
-        private int scale = (1 << 6);
         private Color objectColor;
-        private Color axisColor;
         private Canvas.Canvas activeCanvas;
         private DrawingCanvas drawingCanvas;
         private PolynomialFunctionCanvas polynomialFunctionCanvas;
@@ -44,15 +40,12 @@ namespace MiniPaint.WinForms
         {
             get
             {
-                return axisColor;
+                return polynomialFunctionCanvas.AxisColor;
             }
             set
             {
-                axisColor = value;
+                polynomialFunctionCanvas.AxisColor = value;
                 pbxAxisColor.BackColor = value;
-
-                axis.ForegroundColor = value;
-                btnRedraw_Click(null, null);
             }
         }
 
@@ -60,20 +53,14 @@ namespace MiniPaint.WinForms
         {
             InitializeComponent();
             
-            mathObjects = new Stack<IDrawable>();
             actions = new Stack<IAction>();
-            axis = new Axis(pbxCanvas.Height, pbxCanvas.Width, scale, AxisColor);
             dragging = false;
 
             /* Initialize canvas */
             drawingCanvas = new DrawingCanvas(pbxCanvas.Width, pbxCanvas.Height);
-            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Width, pbxCanvas.Height);
+            polynomialFunctionCanvas = new PolynomialFunctionCanvas(pbxCanvas.Width, pbxCanvas.Height, Color.Gray);
             activeCanvas = drawingCanvas;
             activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
-
-            rdoToolboxLine_CheckedChanged(null, null);
-            toolboxNGon_CheckedChanged(null, null);
-            rdoToolboxPolynomialFunction_CheckedChanged(null, null);
 
             ObjectColor = Color.Black;
             AxisColor = Color.Gray;
@@ -128,6 +115,8 @@ namespace MiniPaint.WinForms
             {
                 a.Do();
             }
+
+            pbxCanvas.Invalidate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -142,7 +131,7 @@ namespace MiniPaint.WinForms
             drawingCanvas.Height = polynomialFunctionCanvas.Height = pbxCanvas.Height;
             drawingCanvas.Width = polynomialFunctionCanvas.Width = pbxCanvas.Width;
 
-            btnRedraw_Click(sender, e);
+            btnRedraw.PerformClick();
         }
 
         private void pbxCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -247,42 +236,39 @@ namespace MiniPaint.WinForms
             grpPolynomialFunction.Enabled = rdoToolboxPolynomialFunction.Checked;
 
             if (activeCanvas != null)
-                activeCanvas.BitmapChanged -= new EventHandler(CanvasChanged);
+                activeCanvas.BitmapChanged -= CanvasChanged;
 
             if (rdoToolboxPolynomialFunction.Checked)
             {
                 activeCanvas = polynomialFunctionCanvas;
+                activeCanvas.BitmapChanged += CanvasChanged;
 
-                if (mathObjects.Count == 0)
+                if (polynomialFunctionCanvas.Objects.Count == 0)
                 {
-                    btnEditFunction_Click(sender, e);
+                    btnEditFunction.PerformClick();
                 }
             }
             else
             {
                 activeCanvas = drawingCanvas;
+                activeCanvas.BitmapChanged += CanvasChanged;
             }
 
-            activeCanvas.BitmapChanged += new EventHandler(CanvasChanged);
-            btnRedraw_Click(sender, e);
+            btnRedraw.PerformClick();
         }
 
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
-            scale = (scale << 1);
-            axis.Scale = scale;
-            foreach (PolynomialFunction o in mathObjects)
-                o.Scale = scale;
-            btnZoomOut.Enabled = (scale > 1);
-            btnRedraw_Click(sender, e);
+            polynomialFunctionCanvas.Scale = (polynomialFunctionCanvas.Scale << 1);
+            btnZoomOut.Enabled = (polynomialFunctionCanvas.Scale > 1);
         }
 
         private void btnEditFunction_Click(object sender, EventArgs e)
         {
             Form frm;
-            if (mathObjects.Count > 0)
+            if (polynomialFunctionCanvas.Objects.Count > 0)
             {
-                frm = new frmEditPolyFunc(((PolynomialFunction)(mathObjects.Peek())).Constants);
+                frm = new frmEditPolyFunc(polynomialFunctionCanvas.Objects.Last().Constants);
             }
             else
             {
@@ -294,9 +280,10 @@ namespace MiniPaint.WinForms
 
         public void ChangePolynomialFunction(double[] constants)
         {
-            mathObjects.Clear();
-            mathObjects.Push(new PolynomialFunction(constants, pbxCanvas.Height, pbxCanvas.Width, scale, ObjectColor));
-            btnRedraw_Click(null, null);
+            PolynomialFunction f = new PolynomialFunction(constants, polynomialFunctionCanvas, ObjectColor);
+            IAction a = new CreatePolynomialFunctionObject(f, polynomialFunctionCanvas);
+            actions.Push(a);
+            a.Do();
         }
 
         private void pbxObjectColor_Click(object sender, EventArgs e)
@@ -319,12 +306,8 @@ namespace MiniPaint.WinForms
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
-            scale = (scale >> 1);
-            axis.Scale = scale;
-            foreach (PolynomialFunction o in mathObjects)
-                o.Scale = scale;
-            btnZoomOut.Enabled = (scale > 1);
-            btnRedraw_Click(sender, e);
+            polynomialFunctionCanvas.Scale = (polynomialFunctionCanvas.Scale >> 1);
+            btnZoomOut.Enabled = (polynomialFunctionCanvas.Scale > 1);
         }
 
         private IDrawable getDrawnObject(Point start, Point end)
