@@ -11,11 +11,13 @@ namespace MiniPaint.WinForms.Action
     {
         private IDrawable drawableObject;
         private DrawingCanvas canvas;
+        private frmMain form;
 
-        public CreateDrawableObject(IDrawable o, DrawingCanvas c)
+        public CreateDrawableObject(IDrawable o, DrawingCanvas c, frmMain f)
         {
             drawableObject = o;
             canvas = c;
+            form = f;
         }
 
         public void Do()

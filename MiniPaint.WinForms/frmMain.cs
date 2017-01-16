@@ -98,7 +98,7 @@ namespace MiniPaint.WinForms
             if (dragging)
             {
                 IDrawable objectToDraw = getDrawnObject(startPoint, e.Location);
-                IAction a = new CreateDrawableObject(objectToDraw, drawingCanvas);
+                IAction a = new CreateDrawableObject(objectToDraw, drawingCanvas, this);
                 actions.Push(a);
 
                 drawingCanvas.FinishDragging();
