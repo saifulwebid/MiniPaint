@@ -8,16 +8,16 @@ namespace MiniPaint.WinForms.Action
 {
     class ClearCanvas : IAction
     {
-        private Canvas.Canvas canvas;
+        private frmMain form;
 
-        public ClearCanvas(Canvas.Canvas c)
+        public ClearCanvas(frmMain f)
         {
-            canvas = c;
+            form = f;
         }
 
         public void Do()
         {
-            canvas.Clear();
+            form.DrawingCanvas.Clear();
         }
     }
 }
